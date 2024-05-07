@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>acutelines.datatoolbox</title>
+    <link rel="stylesheet" href="https://unpkg.com/docute@4/dist/docute.css">
+    <!-- Reduce space between sections and subsections -->
+     <style>
+      .page-content h2 {
+        margin-top: 2em;
+      }
+      .page-content.has-page-title>h2:first-child {
+        margin-top: 2em;
+      }
+      .page-content h3 {
+        margin-top: 2em;
+      }
+      .page-content.has-page-title>h3:first-child {
+        margin-top: 2em;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="docute"></div>
+    <script src="https://unpkg.com/docute@4/dist/docute.js"></script>
+    <script>
+      new Docute({
+        target: '#docute',
+        title: 'acutelines.datatoolbox',
+        highlight: ['r'],
+        darkThemeToggler: true,
+        nav: [
+					{title: 'Home', link: '/' },
+				],
+				sidebar: [
+					{title: 'Home', link: '/'},
+          {title: 'Articles', children: [{title: 'SOFA score calculation', link: '/vignettes/SOFA-score.md'}]},
+          {title: 'Reference', children: [{title: 'cbrt', link: '/man/cbrt.md'}, {title: 'impute_fio2', link: '/man/impute_fio2.md'}, {title: 'impute_pao2', link: '/man/impute_pao2.md'}, {title: 'o2supply_to_fio2', link: '/man/o2supply_to_fio2.md'}, {title: 'sofa_cardiovascular', link: '/man/sofa_cardiovascular.md'}, {title: 'sofa_cns', link: '/man/sofa_cns.md'}, {title: 'sofa_coagulation', link: '/man/sofa_coagulation.md'}, {title: 'sofa_liver', link: '/man/sofa_liver.md'}, {title: 'sofa_magic_wrapper', link: '/man/sofa_magic_wrapper.md'}, {title: 'sofa_renal', link: '/man/sofa_renal.md'}, {title: 'sofa_respiration', link: '/man/sofa_respiration.md'}, {title: 'sofa_total', link: '/man/sofa_total.md'}, {title: 'spo2_to_pao2', link: '/man/spo2_to_pao2.md'}]},
+				],
+      })
+    </script>
+  </body>
+</html>

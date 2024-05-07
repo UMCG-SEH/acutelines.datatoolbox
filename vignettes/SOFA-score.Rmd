@@ -1,0 +1,75 @@
+---
+title: "SOFA score calculation"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{SOFA-score}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, eval = FALSE}
+library(acutelines.datatoolbox)
+```
+
+## Usage
+Asuming the data is loaded into a dataframe `df`, the SOFA score can be calculated in two different ways.
+
+### Automatic calculation
+Use the sofa_magic_wrapper() function when you use a raw data file from the Acutelines database. SOFA related variables are coded as `SOFA_[timespan]h_[variable]`. Make sure all variables are present.
+`interval` can be used to set the time stap interval in correspondance to your dataset, while `timespan` can be use to set the maximum timespan.
+
+    result <- sofa_magic_wrapper(df, interval=24, timespan=72)
+
+### Manual calculation
+When your dataset has a different naming schema (not having the `SOFA_[timespan]h_[variable]` format), you can still calculate the SOFA score with this package, however, you have to
+provide the package with a mapping of each column in your dataset corresponding to the acutal element of the SOFA score.
+
+First define the mapping:
+
+    column_mapping <- c(
+      PaO2 = "your_PaO2_variable",
+      SpO2 = "your_SpO2_variable",
+      FiO2 = "your_FiO2_variable",
+      oxygen_supply = "your_oxygen_supply_variable",
+      platelets = "your_platelets_variable",
+      bilirubin = "your_bilirubin_variable",
+      MAP = "your_MAP_variable",
+      dopamine = "your_dopamine_variable",
+      dobutamine = "your_dobutamine_variable",
+      epinephrine = "your_epinephrine_variable",
+      norepinephrine = "your_norepineprhine_variable",
+      norepinephrine_amp = "your_norepinephrine_amp_variable",
+      GCS = "your_GCS_variable",
+      creatinine = "your_creatinine_variable"
+    )
+
+Than pass that mapping to the sofa_total function along with your dataframe:
+
+    result <- sofa_total(df, column_mapping)
+
+## Calculations
+The SOFA (Sequential Organ Failure Assessment) calculation functions are designed to provide the worst SOFA score for a patient within a specific interval.
+When retrospectively calculating the SOFA score, one must address missing values and inaccurately recorded values. This function automatically handles such issues.
+Consequently, the SOFA score functions incorporate several assumptions to ensure feasible calculations. Users should be aware of these assumptions when utilizing
+these functions.
+
+### Respiration
+
+### Coagulation
+
+### Cardiovascular
+
+### Central nervous system
+
+### Renal
+
+## References
+1. Lambden, S., Laterre, P.F., Levy, M.M. *et al.* The SOFA score—development, utility and challenges of accurate assessment in clinical trials. *Crit Care* **23**, 374 (2019). https://doi.org/10.1186/s13054-019-2663-7
+2. Moreno, R., Rhodes, A., Piquilloud, L. *et al.* The Sequential Organ Failure Assessment (SOFA) Score: has the time come for an update?. *Crit Care* **27**, 15 (2023). https://doi.org/10.1186/s13054-022-04290-9
