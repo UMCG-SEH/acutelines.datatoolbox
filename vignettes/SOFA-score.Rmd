@@ -33,22 +33,24 @@ provide the package with a mapping of each column in your dataset corresponding 
 
 First define the mapping:
 
-    column_mapping <- c(
-      PaO2 = "your_PaO2_variable",
-      SpO2 = "your_SpO2_variable",
-      FiO2 = "your_FiO2_variable",
-      oxygen_supply = "your_oxygen_supply_variable",
-      platelets = "your_platelets_variable",
-      bilirubin = "your_bilirubin_variable",
-      MAP = "your_MAP_variable",
-      dopamine = "your_dopamine_variable",
-      dobutamine = "your_dobutamine_variable",
-      epinephrine = "your_epinephrine_variable",
-      norepinephrine = "your_norepineprhine_variable",
-      norepinephrine_amp = "your_norepinephrine_amp_variable",
-      GCS = "your_GCS_variable",
-      creatinine = "your_creatinine_variable"
-    )
+``` R
+column_mapping <- c(
+  PaO2 = "your_PaO2_variable",
+  SpO2 = "your_SpO2_variable",
+  FiO2 = "your_FiO2_variable",
+  oxygen_supply = "your_oxygen_supply_variable",
+  platelets = "your_platelets_variable",
+  bilirubin = "your_bilirubin_variable",
+  MAP = "your_MAP_variable",
+  dopamine = "your_dopamine_variable",
+  dobutamine = "your_dobutamine_variable",
+  epinephrine = "your_epinephrine_variable",
+  norepinephrine = "your_norepineprhine_variable",
+  norepinephrine_amp = "your_norepinephrine_amp_variable",
+  GCS = "your_GCS_variable",
+  creatinine = "your_creatinine_variable"
+)
+```
 
 Than pass that mapping to the sofa_total function along with your dataframe:
 
@@ -61,6 +63,13 @@ Consequently, the SOFA score functions incorporate several assumptions to ensure
 these functions.
 
 ### Respiration
+Many respiratory parameters tend to be missing. The [sofa_respiration()] function calculated the respiratory points of the SOFA score
+with the following rules and assumptions:
+
+1. If PaO2 is below 7 it is assumed venous and removed from the dataset.
+2. If PaO2 is missing, it is imputed from SpO2 using the Brows / Ellis equation [3][4]. Rounded by 1 decimal.
+3. If FiO2 is missing it is imputed from nasal canula oxygen supply (L/min).
+ * In case nasal canula oxygen supply is below 16 L/min it is assumed to be FiO2.
 
 ### Coagulation
 
@@ -73,3 +82,5 @@ these functions.
 ## References
 1. Lambden, S., Laterre, P.F., Levy, M.M. *et al.* The SOFA score—development, utility and challenges of accurate assessment in clinical trials. *Crit Care* **23**, 374 (2019). https://doi.org/10.1186/s13054-019-2663-7
 2. Moreno, R., Rhodes, A., Piquilloud, L. *et al.* The Sequential Organ Failure Assessment (SOFA) Score: has the time come for an update?. *Crit Care* **27**, 15 (2023). https://doi.org/10.1186/s13054-022-04290-9
+3. DOI: 10.1016/j.chest.2016.01.003
+4. DOI: 0.1152/jappl.1979.46.3.599

@@ -2,11 +2,7 @@
 % Please edit documentation in R/sofa.r
 \name{sofa_cardiovascular}
 \alias{sofa_cardiovascular}
-\title{Calculate the sofa score for cardiovacular
-Note: due to inconsistent registration of norepinephrine dosages,
-when norephenrine is present 3.5 points are given.
-Researchers a free to either round this to 4 (overesitmate),
-3 (underestimate) or leave it as is}
+\title{SOFA cardiovacular}
 \usage{
 sofa_cardiovascular(
   map,
@@ -20,24 +16,40 @@ sofa_cardiovascular(
 \arguments{
 \item{map}{Mean Arterial Pressure}
 
-\item{dopamine}{Dopamine dosage}
+\item{dopamine}{Dopamine dosage (ug/kg/min)}
 
-\item{dobutamine}{Dobutamine dosage}
+\item{dobutamine}{Dobutamine dosage (ug/kg/min)}
 
-\item{epinephrine}{Epinephrine dosage}
+\item{epinephrine}{Epinephrine dosage (ug/kg/min)}
 
-\item{norepinephrine}{Norepinephrine dosage}
+\item{norepinephrine}{Norepinephrine dosage (ug/kg/min)}
 
 \item{norepinephrine_amp}{Norepinephrine ampul
 administration (1=TRUE, 0=FALSE)}
 }
 \value{
-sofascore
+partial sofa score
 }
 \description{
-Calculate the sofa score for cardiovacular
-Note: due to inconsistent registration of norepinephrine dosages,
-when norephenrine is present 3.5 points are given.
-Researchers a free to either round this to 4 (overesitmate),
-3 (underestimate) or leave it as is
+This function calculates the cardiavascular part of the SOFA
+score.
 }
+\details{
+Due to inconsistent registration of norepinephrine dosages,
+it's not possible to distinguish between high (>0.1) and
+low (<=0.1) dosage of norepinephrine.
+When norephenrine is present 3.5 points are given.
+Researchers can either round this to 4 (overestimate),
+3 (underestimate) or leave it as is.
+}
+\seealso{
+Other sofa: 
+\code{\link{sofa_cns}()},
+\code{\link{sofa_coagulation}()},
+\code{\link{sofa_liver}()},
+\code{\link{sofa_magic_wrapper}()},
+\code{\link{sofa_renal}()},
+\code{\link{sofa_respiration}()},
+\code{\link{sofa_total}()}
+}
+\concept{sofa}

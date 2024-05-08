@@ -2,8 +2,7 @@
 % Please edit documentation in R/sofa.r
 \name{spo2_to_pao2}
 \alias{spo2_to_pao2}
-\title{SOFA score calculation helper functions
-Acutelines 2024}
+\title{Convert SpO2 to PaO2}
 \usage{
 spo2_to_pao2(spo2)
 }
@@ -14,11 +13,20 @@ spo2_to_pao2(spo2)
 pao2 Calculated PaO2 (kPa)
 }
 \description{
-Revisions:
-v1 STH Initial script
-v2 TvdA Revising calculations
-v3 RvW Refactored code to functions, added Brown equation
 Convert SpO2 to PaO2 based on Brown / Ellis equation
-DOI: 10.1016/j.chest.2016.01.003
-DOI: 0.1152/jappl.1979.46.3.599
 }
+\details{
+Converts SpO2 percentages to PaO2 values in kPa. This is based
+on the equations provides in two publications by Brown and
+Ellis.
+DOI: \href{https://doi.org/10.1016/j.chest.2016.01.003}{10.1016/j.chest.2016.01.003}
+DOI: \href{https://doi.org/0.1152/jappl.1979.46.3.599}{0.1152/jappl.1979.46.3.599}
+}
+\seealso{
+Other helper: 
+\code{\link{cbrt}()},
+\code{\link{impute_fio2}()},
+\code{\link{impute_pao2}()},
+\code{\link{o2supply_to_fio2}()}
+}
+\concept{helper}

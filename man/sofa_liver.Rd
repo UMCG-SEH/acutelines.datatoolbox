@@ -2,7 +2,7 @@
 % Please edit documentation in R/sofa.r
 \name{sofa_liver}
 \alias{sofa_liver}
-\title{Calculate sofa score for liver}
+\title{SOFA liver}
 \usage{
 sofa_liver(bili)
 }
@@ -10,8 +10,20 @@ sofa_liver(bili)
 \item{bili}{Bilirubin (umol L^-1)}
 }
 \value{
-sofa score
+partial sofa score
 }
 \description{
-Calculate sofa score for liver
+This function calculates the liver part of the SOFA
+score. Platelet count need to be provided in umol L^-1.
 }
+\seealso{
+Other sofa: 
+\code{\link{sofa_cardiovascular}()},
+\code{\link{sofa_cns}()},
+\code{\link{sofa_coagulation}()},
+\code{\link{sofa_magic_wrapper}()},
+\code{\link{sofa_renal}()},
+\code{\link{sofa_respiration}()},
+\code{\link{sofa_total}()}
+}
+\concept{sofa}

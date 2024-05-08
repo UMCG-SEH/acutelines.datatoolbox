@@ -2,7 +2,7 @@
 % Please edit documentation in R/sofa.r
 \name{impute_pao2}
 \alias{impute_pao2}
-\title{Impute PaO2 with SpO2. If PaO2 is missing replace with PaO2 calculated from SpO2}
+\title{Impute PaO2 with SpO2}
 \usage{
 impute_pao2(pao2, spo2)
 }
@@ -15,5 +15,19 @@ impute_pao2(pao2, spo2)
 pao2
 }
 \description{
-Impute PaO2 with SpO2. If PaO2 is missing replace with PaO2 calculated from SpO2
+If PaO2 is missing replace with PaO2 calculated from SpO2.
 }
+\details{
+PaO2 is missing in many cases, as arterial blood gass analysis
+is only performed when needed. To fill those gaps, this function
+converts SpO2 (\%) to PaO2 (kPa) in case the PaO2 is missing in
+the dataset. This functions uses \code{\link[=spo2_to_pao2]{spo2_to_pao2()}}
+}
+\seealso{
+Other helper: 
+\code{\link{cbrt}()},
+\code{\link{impute_fio2}()},
+\code{\link{o2supply_to_fio2}()},
+\code{\link{spo2_to_pao2}()}
+}
+\concept{helper}
