@@ -25,7 +25,9 @@ Asuming the data is loaded into a dataframe `df`, the SOFA score can be calculat
 Use the sofa_magic_wrapper() function when you use a raw data file from the Acutelines database. SOFA related variables are coded as `SOFA_[timespan]h_[variable]`. Make sure all variables are present.
 `interval` can be used to set the time stap interval in correspondance to your dataset, while `timespan` can be use to set the maximum timespan.
 
-    result <- sofa_magic_wrapper(df, interval=24, timespan=72)
+``` R
+result <- sofa_magic_wrapper(df, interval=24, timespan=72)
+```
 
 ### Manual calculation
 When your dataset has a different naming schema (not having the `SOFA_[timespan]h_[variable]` format), you can still calculate the SOFA score with this package, however, you have to
@@ -54,7 +56,9 @@ column_mapping <- c(
 
 Than pass that mapping to the sofa_total function along with your dataframe:
 
-    result <- sofa_total(df, column_mapping)
+``` R
+result <- sofa_total(df, column_mapping)
+```
 
 ## Calculations
 The SOFA (Sequential Organ Failure Assessment) calculation functions are designed to provide the worst SOFA score for a patient within a specific interval.
@@ -63,7 +67,7 @@ Consequently, the SOFA score functions incorporate several assumptions to ensure
 these functions.
 
 ### Respiration
-Many respiratory parameters tend to be missing. The [sofa_respiration()] function calculated the respiratory points of the SOFA score
+Many respiratory parameters tend to be missing. The sofa_respiration() function calculated the respiratory points of the SOFA score
 with the following rules and assumptions:
 
 1. If PaO2 is below 7 it is assumed venous and removed from the dataset.

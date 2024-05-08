@@ -97,7 +97,8 @@ from the Acutelines database. SOFA related variables are coded as
 present. <code>interval</code> can be used to set the time stap interval
 in correspondance to your dataset, while <code>timespan</code> can be
 use to set the maximum timespan.</p>
-<pre><code><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sofa_magic_wrapper.html">sofa_magic_wrapper</a></span><span class="op">(</span><span class="va">df</span>, interval<span class="op">=</span><span class="fl">24</span>, timespan<span class="op">=</span><span class="fl">72</span><span class="op">)</span></span></code></pre>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sofa_magic_wrapper.html">sofa_magic_wrapper</a></span><span class="op">(</span><span class="va">df</span>, interval<span class="op">=</span><span class="fl">24</span>, timespan<span class="op">=</span><span class="fl">72</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="manual-calculation">Manual calculation<a class="anchor" aria-label="anchor" href="#manual-calculation"></a>
@@ -127,7 +128,8 @@ to the acutal element of the SOFA score.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Than pass that mapping to the sofa_total function along with your
 dataframe:</p>
-<pre><code><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sofa_total.html">sofa_total</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">column_mapping</span><span class="op">)</span></span></code></pre>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sofa_total.html">sofa_total</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">column_mapping</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -145,7 +147,7 @@ these functions.</p>
 <h3 id="respiration">Respiration<a class="anchor" aria-label="anchor" href="#respiration"></a>
 </h3>
 <p>Many respiratory parameters tend to be missing. The
-[sofa_respiration()] function calculated the respiratory points of the
+sofa_respiration() function calculated the respiratory points of the
 SOFA score with the following rules and assumptions:</p>
 <ol style="list-style-type: decimal">
 <li>If PaO2 is below 7 it is assumed venous and removed from the
