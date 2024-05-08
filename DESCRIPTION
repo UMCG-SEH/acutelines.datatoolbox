@@ -1,13 +1,16 @@
 Package: acutelines.datatoolbox
 Title: Toolbox to work with Acutelines biobak data.
 Version: 0.5
-Authors@R: 
-    c(person("Raymond", "van Wijk", , "r.j.van.wijk@umcg.nl", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0002-2106-7699"))
-    person("Tamar", "van der Aart", , role = c("aut"))
-    person("Sanne", "Ter Horst", , role = c("aut")))
-Description: What the package does (one paragraph).
-License: use_mit_license()
+Authors@R: c(
+    person("Raymond", "van Wijk", , "r.j.van.wijk@umcg.nl", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2106-7699")),
+    person("Tamar", "van der Aart", , role = c("ctb")),
+    person("Sanne", "Ter Horst", , role = c("ctb"))
+    )
+Description: This package can be used to work with data extracted from the Acutelines data- and biobank.
+    It provides tools to parse data extracts and perform calculations in a uniform matter.
+URL: https://umcg-seh.github.io/acutelines.datatoolbox/, https://github.com/UMCG-SEH/acutelines.datatoolbox
+BugReports: https://github.com/UMCG-SEH/acutelines.datatoolbox/issues
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1

@@ -1,11 +1,10 @@
 # Development instructions
 
-Install R `devtools`, `roxygen2` and `altdoc`. Install Quatro.
+Install R `devtools`, `roxygen2` and `pkgdown`.
 Run:
 
     devtools::document()
-    render_docs()
+    pkgdown::build_site()
 
-When it gives errors, use:
-
-    render_docs(verbose=TRUE)
+# References
+1. https://pkgdown.r-lib.org/
