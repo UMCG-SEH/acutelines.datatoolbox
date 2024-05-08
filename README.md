@@ -1,8 +1,7 @@
 # Acutelines Datatoolbox R Package
 
 <!-- badges: start -->
-![GitHub R package version](https://img.shields.io/github/r-package/v/UMCG-SEH/acutelines.datatoolbox?logo=R)(https://github.com/UMCG-SEH/acutelines.datatoolbox/releases)
-![GitHub License](https://img.shields.io/github/license/umcg-seh/acutelines.datatoolbox)
+[![GitHub R package version](https://img.shields.io/github/r-package/v/UMCG-SEH/acutelines.datatoolbox?logo=R)](https://github.com/UMCG-SEH/acutelines.datatoolbox/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
 

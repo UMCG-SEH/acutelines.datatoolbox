@@ -9,7 +9,9 @@ sofa_total(df, column_mapping, return_df = FALSE)
 \arguments{
 \item{df}{data frame}
 
-\item{column_mapping}{map df columns to SOFA items. Follow this strucure:}
+\item{column_mapping}{map df columns to SOFA items. Follow this structure:}
+
+\item{return_df}{if set to TRUE returns all individual elements of the SOFA}
 }
 \value{
 df column with sofa score per row
