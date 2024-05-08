@@ -2,7 +2,7 @@
 % Please edit documentation in R/sofa.r
 \name{sofa_coagulation}
 \alias{sofa_coagulation}
-\title{Calculate sofa score for coagulation}
+\title{SOFA coagulation}
 \usage{
 sofa_coagulation(plt)
 }
@@ -10,8 +10,20 @@ sofa_coagulation(plt)
 \item{plt}{Platelets (*10^3 uL^-1)}
 }
 \value{
-sofa score
+partial sofa score
 }
 \description{
-Calculate sofa score for coagulation
+This function calculates the coagulation part of the SOFA
+score. Platelet count need to be provided in *10^3 uL^-1.
 }
+\seealso{
+Other sofa: 
+\code{\link{sofa_cardiovascular}()},
+\code{\link{sofa_cns}()},
+\code{\link{sofa_liver}()},
+\code{\link{sofa_magic_wrapper}()},
+\code{\link{sofa_renal}()},
+\code{\link{sofa_respiration}()},
+\code{\link{sofa_total}()}
+}
+\concept{sofa}

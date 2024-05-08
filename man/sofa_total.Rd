@@ -2,7 +2,7 @@
 % Please edit documentation in R/sofa.r
 \name{sofa_total}
 \alias{sofa_total}
-\title{Calculate the total sofa score from Acutelines df}
+\title{Total SOFA score}
 \usage{
 sofa_total(df, column_mapping, return_df = FALSE)
 }
@@ -15,7 +15,7 @@ sofa_total(df, column_mapping, return_df = FALSE)
 df column with sofa score per row
 }
 \description{
-Calculate the total sofa score from Acutelines df
+Calculate the total sofa score from Acutelines dataframe.
 }
 \examples{
 \dontrun{
@@ -39,3 +39,14 @@ result <- sofa_total(df, column_mapping)
 }
 
 }
+\seealso{
+Other sofa: 
+\code{\link{sofa_cardiovascular}()},
+\code{\link{sofa_cns}()},
+\code{\link{sofa_coagulation}()},
+\code{\link{sofa_liver}()},
+\code{\link{sofa_magic_wrapper}()},
+\code{\link{sofa_renal}()},
+\code{\link{sofa_respiration}()}
+}
+\concept{sofa}

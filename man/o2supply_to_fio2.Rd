@@ -2,16 +2,30 @@
 % Please edit documentation in R/sofa.r
 \name{o2supply_to_fio2}
 \alias{o2supply_to_fio2}
-\title{When O2 supply is below 16 consider it already FiO2}
+\title{O2-supply to FiO2}
 \usage{
 o2supply_to_fio2(o2supply)
 }
 \arguments{
-\item{o2supply}{Oxygen supply}
+\item{o2supply}{Oxygen supply (L/min)}
 }
 \value{
 fio2 fraction inspirated oxygen
 }
 \description{
-When O2 supply is below 16 consider it already FiO2
+Convert the O2-supply in L/min to FiO2.
 }
+\details{
+This function converts the oxygen supply in L/min as given per nasal
+canula to FiO2. In some cases the FiO2 is reported in the O2 suuply
+field. To correct for this mistake, when O2 supply is below 16 it is
+considered as FiO2.
+}
+\seealso{
+Other helper: 
+\code{\link{cbrt}()},
+\code{\link{impute_fio2}()},
+\code{\link{impute_pao2}()},
+\code{\link{spo2_to_pao2}()}
+}
+\concept{helper}

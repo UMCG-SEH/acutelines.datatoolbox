@@ -6,7 +6,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="acutelines.datatoolbox">
-<title>SOFA score calculation • acutelines.datatoolbox</title>
+<title>SOFA score calculation • Acutelines Datatoolbox</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -24,9 +30,9 @@
 
     <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary" data-bs-theme="dark"><div class="container">
     
-    <a class="navbar-brand me-2" href="../index.html">acutelines.datatoolbox</a>
+    <a class="navbar-brand me-2" href="../index.html">Acutelines Datatoolbox</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -102,7 +108,8 @@ calculate the SOFA score with this package, however, you have to provide
 the package with a mapping of each column in your dataset corresponding
 to the acutal element of the SOFA score.</p>
 <p>First define the mapping:</p>
-<pre><code><span><span class="va">column_mapping</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">column_mapping</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  PaO2 <span class="op">=</span> <span class="st">"your_PaO2_variable"</span>,</span>
 <span>  SpO2 <span class="op">=</span> <span class="st">"your_SpO2_variable"</span>,</span>
 <span>  FiO2 <span class="op">=</span> <span class="st">"your_FiO2_variable"</span>,</span>
@@ -117,7 +124,7 @@ to the acutal element of the SOFA score.</p>
 <span>  norepinephrine_amp <span class="op">=</span> <span class="st">"your_norepinephrine_amp_variable"</span>,</span>
 <span>  GCS <span class="op">=</span> <span class="st">"your_GCS_variable"</span>,</span>
 <span>  creatinine <span class="op">=</span> <span class="st">"your_creatinine_variable"</span></span>
-<span><span class="op">)</span></span></code></pre>
+<span><span class="op">)</span></span></code></pre></div>
 <p>Than pass that mapping to the sofa_total function along with your
 dataframe:</p>
 <pre><code><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sofa_total.html">sofa_total</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">column_mapping</span><span class="op">)</span></span></code></pre>
@@ -137,6 +144,21 @@ these functions.</p>
 <div class="section level3">
 <h3 id="respiration">Respiration<a class="anchor" aria-label="anchor" href="#respiration"></a>
 </h3>
+<p>Many respiratory parameters tend to be missing. The
+[sofa_respiration()] function calculated the respiratory points of the
+SOFA score with the following rules and assumptions:</p>
+<ol style="list-style-type: decimal">
+<li>If PaO2 is below 7 it is assumed venous and removed from the
+dataset.</li>
+<li>If PaO2 is missing, it is imputed from SpO2 using the Brows / Ellis
+equation [3][4]. Rounded by 1 decimal.</li>
+<li>If FiO2 is missing it is imputed from nasal canula oxygen supply
+(L/min).</li>
+</ol>
+<ul>
+<li>In case nasal canula oxygen supply is below 16 L/min it is assumed
+to be FiO2.</li>
+</ul>
 </div>
 <div class="section level3">
 <h3 id="coagulation">Coagulation<a class="anchor" aria-label="anchor" href="#coagulation"></a>
@@ -167,6 +189,8 @@ clinical trials. <em>Crit Care</em> <strong>23</strong>, 374 (2019). <a href="ht
 Sequential Organ Failure Assessment (SOFA) Score: has the time come for
 an update?. <em>Crit Care</em> <strong>27</strong>, 15 (2023). <a href="https://doi.org/10.1186/s13054-022-04290-9" class="external-link uri">https://doi.org/10.1186/s13054-022-04290-9</a>
 </li>
+<li>DOI: 10.1016/j.chest.2016.01.003</li>
+<li>DOI: 0.1152/jappl.1979.46.3.599</li>
 </ol>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

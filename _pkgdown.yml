@@ -1,5 +1,19 @@
 url: ~https://umcg-seh.github.io/acutelines.datatoolbox
+title: Acutelines Datatoolbox
 template:
   bootstrap: 5
   bootswatch: flatly
-
+development:
+  mode: auto
+reference:
+- title: SOFA score
+  desc:  Calculate (elements) of the SOFA socre
+- contents:
+  - starts_with("sofa_")
+- title: Helper functions
+- contents:
+  - cbrt
+  - impute_fio2
+  - impute_pao2
+  - o2supply_to_fio2
+  - spo2_to_pao2
