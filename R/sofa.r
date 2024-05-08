@@ -131,17 +131,20 @@ sofa_liver <- function(bili) {
 #' Calculate the sofa score for cardiovacular
 #' Note: due to inconsistent registration of norepinephrine dosages,
 #' when norephenrine is present 3.5 points are given.
-#' Researchers a free to either round this to 4 (overesitmate), 3 (underesitmate) or leave it as is
+#' Researchers a free to either round this to 4 (overesitmate),
+#' 3 (underestimate) or leave it as is
 #' 
 #' @param map Mean Arterial Pressure
 #' @param dopamine Dopamine dosage
 #' @param dobutamine Dobutamine dosage
 #' @param epinephrine Epinephrine dosage
 #' @param norepinephrine Norepinephrine dosage
-#' @param norepinephrine_amp Norepinephrine ampul administration (1=TRUE, 0=FALSE)
+#' @param norepinephrine_amp Norepinephrine ampul
+#'  administration (1=TRUE, 0=FALSE)
 #' 
-#' @return sofa score
-sofa_cardiovascular <- function(map, dopamine, dobutamine, epinephrine, norepinephrine, norepinephrine_amp) {
+#' @return sofascore
+sofa_cardiovascular <- function(map, dopamine, dobutamine, epinephrine,
+                                norepinephrine, norepinephrine_amp) {
   sofa_cardio <- NA
   sofa_cardio[map>=70] <- 0
   sofa_cardio[map<70] <- 1
@@ -149,7 +152,6 @@ sofa_cardiovascular <- function(map, dopamine, dobutamine, epinephrine, norepine
   sofa_cardio[(dopamine>=5.1 | epinephrine>0)] <- 3
   sofa_cardio[(norepinephrine>0 | norepinephrine_amp==1)] <- 3.5
   sofa_cardio[(dopamine>15 | epinephrine>0.1)] <- 4
-  
   return(sofa_cardio)
 }
 

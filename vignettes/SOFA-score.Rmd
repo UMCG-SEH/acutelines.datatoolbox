@@ -2,7 +2,7 @@
 title: "SOFA score calculation"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{SOFA-score}
+  %\VignetteIndexEntry{SOFA score calculation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, eval = FALSE}
+```{r setup, eval = FALSE, include = FALSE}
 library(acutelines.datatoolbox)
 ```
 

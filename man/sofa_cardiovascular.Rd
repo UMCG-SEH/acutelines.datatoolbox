@@ -5,7 +5,8 @@
 \title{Calculate the sofa score for cardiovacular
 Note: due to inconsistent registration of norepinephrine dosages,
 when norephenrine is present 3.5 points are given.
-Researchers a free to either round this to 4 (overesitmate), 3 (underesitmate) or leave it as is}
+Researchers a free to either round this to 4 (overesitmate),
+3 (underestimate) or leave it as is}
 \usage{
 sofa_cardiovascular(
   map,
@@ -27,14 +28,16 @@ sofa_cardiovascular(
 
 \item{norepinephrine}{Norepinephrine dosage}
 
-\item{norepinephrine_amp}{Norepinephrine ampul administration (1=TRUE, 0=FALSE)}
+\item{norepinephrine_amp}{Norepinephrine ampul
+administration (1=TRUE, 0=FALSE)}
 }
 \value{
-sofa score
+sofascore
 }
 \description{
 Calculate the sofa score for cardiovacular
 Note: due to inconsistent registration of norepinephrine dosages,
 when norephenrine is present 3.5 points are given.
-Researchers a free to either round this to 4 (overesitmate), 3 (underesitmate) or leave it as is
+Researchers a free to either round this to 4 (overesitmate),
+3 (underestimate) or leave it as is
 }

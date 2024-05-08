@@ -1,0 +1,5 @@
+url: ~https://umcg-seh.github.io/acutelines.datatoolbox
+template:
+  bootstrap: 5
+  bootswatch: flatly
+
