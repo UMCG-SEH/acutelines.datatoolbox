@@ -267,7 +267,8 @@ sofa_renal <- function(creat) {
 #' @family sofa
 #' 
 #' @param df data frame
-#' @param column_mapping map df columns to SOFA items. Follow this strucure:
+#' @param column_mapping map df columns to SOFA items. Follow this structure:
+#' @param return_df if set to TRUE returns all individual elements of the SOFA
 #' 
 #' @return df column with sofa score per row
 #' 
