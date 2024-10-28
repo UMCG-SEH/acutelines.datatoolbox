@@ -26,6 +26,7 @@ column_mapping <- c(
  SpO2 = "SOFA_24h_SpO2",
  FiO2 = "SOFA_24h_FiO2",
  oxygen_supply = "SOFA_24h_oxygen_supply",
+ oxygen_mode = "SOFA_24h_oxygen_mode",
  platelets = "SOFA_24h_platelets",
  bilirubin = "SOFA_24h_bilirubin",
  MAP = "SOFA_24h_MAP",

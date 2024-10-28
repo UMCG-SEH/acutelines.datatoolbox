@@ -1,6 +1,9 @@
 ---
 title: "SOFA score calculation"
 output: rmarkdown::html_vignette
+bibliography: bibliography.bib
+link-citations: true
+csl: ama.csl
 vignette: >
   %\VignetteIndexEntry{SOFA score calculation}
   %\VignetteEngine{knitr::rmarkdown}
@@ -22,14 +25,15 @@ library(acutelines.datatoolbox)
 Asuming the data is loaded into a dataframe `df`, the SOFA score can be calculated in two different ways.
 
 ### Automatic calculation
-Use the sofa_magic_wrapper() function when you use a raw data file from the Acutelines database. SOFA related variables are coded as `SOFA_[timespan]h_[variable]`. Make sure all variables are present.
+Use the `sofa_magic_wrapper()` function when you use a raw data file from the Acutelines database. SOFA related variables are coded as `SOFA_[timespan]h_[variable]`. Make sure all variables are present.
 `interval` can be used to set the time stap interval in correspondance to your dataset, while `timespan` can be use to set the maximum timespan.
 
 ``` R
 result <- sofa_magic_wrapper(df, interval=24, timespan=72)
 ```
 
-### Manual calculation
+<details>
+<summary>Manual calculation</summary>
 When your dataset has a different naming schema (not having the `SOFA_[timespan]h_[variable]` format), you can still calculate the SOFA score with this package, however, you have to
 provide the package with a mapping of each column in your dataset corresponding to the acutal element of the SOFA score.
 
@@ -55,26 +59,29 @@ column_mapping <- c(
 )
 ```
 
-Than pass that mapping to the sofa_total function along with your dataframe:
+Then pass that mapping to the sofa_total function along with your dataframe:
 
 ``` R
 result <- sofa_total(df, column_mapping)
 ```
+</details>
 
 ## Calculations
-The SOFA (Sequential Organ Failure Assessment) calculation functions are designed to provide the worst SOFA score for a patient within a specific interval.
+The SOFA (Sequential Organ Failure Assessment) [@Lambden2019; @Moreno2023] calculation functions are designed to provide the worst SOFA score for a patient within a specific interval.
 When retrospectively calculating the SOFA score, one must address missing values and inaccurately recorded values. This function automatically handles such issues.
 Consequently, the SOFA score functions incorporate several assumptions to ensure feasible calculations. Users should be aware of these assumptions when utilizing
 these functions.
 
 ### Respiration
-Many respiratory parameters tend to be missing. The sofa_respiration() function calculated the respiratory points of the SOFA score
+Many respiratory parameters tend to be missing. The `sofa_respiration()` function calculated the respiratory points of the SOFA score
 with the following rules and assumptions:
 
 1. If PaO2 is below 7 it is assumed venous and removed from the dataset.
-2. If PaO2 is missing, it is imputed from SpO2 using the Brows / Ellis equation [3][4]. Rounded by 1 decimal.
-3. If FiO2 is missing it is imputed from nasal canula oxygen supply (L/min).
- * In case nasal canula oxygen supply is below 16 L/min it is assumed to be FiO2.
+2. If PaO2 is missing, it is imputed from SpO2 using the Brows / Ellis equation [@BROWN2016307; @severinghaus1979]. Rounded by 1 decimal.
+3. If FiO2 is missing it is imputed from nasal canula oxygen supply using formula: $FiO_2 = 20+4Q_{O_2}$, where Q~O2~ is the oxygen flow in L/min.
+    + If the FiO2 is below 1, it is assumed a fraction and multiplied by 100 to make it a percentage.\
+    + If the FiO2 is between 1 ans 21 is is assumed oxygen supply (L/min) and converted to FiO2.
+    + In case nasal canula oxygen supply is below or equaol to 15 L/min it is assumed to be FiO2.
 
 ### Coagulation
 
@@ -83,9 +90,3 @@ with the following rules and assumptions:
 ### Central nervous system
 
 ### Renal
-
-## References
-1. Lambden, S., Laterre, P.F., Levy, M.M. *et al.* The SOFA score—development, utility and challenges of accurate assessment in clinical trials. *Crit Care* **23**, 374 (2019). https://doi.org/10.1186/s13054-019-2663-7
-2. Moreno, R., Rhodes, A., Piquilloud, L. *et al.* The Sequential Organ Failure Assessment (SOFA) Score: has the time come for an update?. *Crit Care* **27**, 15 (2023). https://doi.org/10.1186/s13054-022-04290-9
-3. DOI: 10.1016/j.chest.2016.01.003
-4. DOI: 0.1152/jappl.1979.46.3.599

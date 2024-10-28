@@ -1,10 +1,10 @@
 Package: acutelines.datatoolbox
-Title: Toolbox to work with Acutelines biobak data.
+Title: Toolbox to work with Acutelines biobank data.
 Version: 0.0.0.5
 Authors@R: c(
-    person("Raymond", "van Wijk", , "r.j.van.wijk@umcg.nl", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2106-7699")),
+    person(given=c("Raymond", "J."), "van Wijk", , "r.j.van.wijk@umcg.nl", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2106-7699")),
     person("Tamar", "van der Aart", , role = c("ctb")),
-    person("Sanne", "Ter Horst", , role = c("ctb"))
+    person("Sanne", "Ter Horst", , role = c("ctb")),
     person("Carolina", "Hincapié-Osorno", , role = c("ctb"), comment = c(ORCID = "0000-0001-8582-1614"))
     )
 Description: This package can be used to work with data extracted from the Acutelines data- and biobank.
