@@ -28,6 +28,7 @@ Other helper:
 \code{\link{cbrt}()},
 \code{\link{impute_fio2}()},
 \code{\link{o2supply_to_fio2}()},
+\code{\link{pfratio_imputed}()},
 \code{\link{spo2_to_pao2}()}
 }
 \concept{helper}

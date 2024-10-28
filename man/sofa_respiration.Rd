@@ -4,9 +4,11 @@
 \alias{sofa_respiration}
 \title{SOFA respiration}
 \usage{
-sofa_respiration(pfratio, pao2, fio2)
+sofa_respiration(mechanical_ventilation, pfratio, pao2, fio2)
 }
 \arguments{
+\item{mechanical_ventilation}{Mechanical Ventilation (1=TRUE, 0=FALSE)}
+
 \item{pfratio}{P/F-ratio (kPa)}
 
 \item{pao2}{PaO2 (kPa)}
@@ -19,7 +21,7 @@ partial sofa score
 \description{
 This function calculates the respiratory part of the SOFA
 score. It needs either the PF-ratio or both PaO2 and FiO2.
-If PF-ratio is missing, the funcion will calculate it from
+If PF-ratio is missing, the function will calculate it from
 PaO2 and FiO2.
 }
 \seealso{

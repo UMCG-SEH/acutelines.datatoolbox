@@ -110,7 +110,6 @@ impute_fio2 <- function(fio2, o2supply) {
 
   # If FiO2 is <21 then it is probable oxygen supply in L/min, convert
   fio2 <- ifelse(fio2 > 1 & fio2 < 21, o2supply_to_fio2(fio2), fio2)
-  #fio2[fio2 > 1 & fio2 < 21] <- o2supply_to_fio2(fio2[fio2 > 1 & fio2 < 21])
 
   # Replace all missing Fio2 with calculated FiO2 from O2 supply or 21%
   fio2[is.na(fio2)] <- o2supply_to_fio2(o2supply[is.na(fio2)])
