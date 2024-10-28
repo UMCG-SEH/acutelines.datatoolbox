@@ -5,6 +5,7 @@ Authors@R: c(
     person("Raymond", "van Wijk", , "r.j.van.wijk@umcg.nl", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2106-7699")),
     person("Tamar", "van der Aart", , role = c("ctb")),
     person("Sanne", "Ter Horst", , role = c("ctb"))
+    person("Carolina", "Hincapié-Osorno", , role = c("ctb"), comment = c(ORCID = "0000-0001-8582-1614"))
     )
 Description: This package can be used to work with data extracted from the Acutelines data- and biobank.
     It provides tools to parse data extracts and perform calculations in a uniform matter.

@@ -58,7 +58,7 @@ cbrt <- function(x){
 #' 
 #' @return fio2 fraction inspirated oxygen
 o2supply_to_fio2 <- function(o2supply) {
-  return(ifelse(o2supply<16, (20+(4*o2supply)), o2supply))
+  return(ifelse(o2supply<=15, (20+(4*o2supply)), o2supply))
 }
 
 
@@ -105,29 +105,61 @@ impute_pao2 <- function(pao2, spo2) {
 #' 
 #' @return fio2
 impute_fio2 <- function(fio2, o2supply) {
+  # If FiO2 is <1 then it is probably a fraction, convert to percentage
+  fio2 <- ifelse(fio2 < 1, fio2*100, fio2)
+
+  # If FiO2 is <21 then it is probable oxygen supply in L/min, convert
+  fio2 <- ifelse(fio2 > 1 & fio2 < 21, o2supply_to_fio2(fio2), fio2)
+  #fio2[fio2 > 1 & fio2 < 21] <- o2supply_to_fio2(fio2[fio2 > 1 & fio2 < 21])
+
   # Replace all missing Fio2 with calculated FiO2 from O2 supply or 21%
   fio2[is.na(fio2)] <- o2supply_to_fio2(o2supply[is.na(fio2)])
   fio2[is.na(fio2)] <- 21
-  
+
   return(fio2/100)
 }
 
+#' Calculate P/F-ratio
+#' 
+#' Calculate P/F-ratio while imputing missing PaO2 using SpO2 and
+#' missing FiO2 using oxygen supply (in L/min)
+#' 
+#' This function uses the impute_pao2 and impute_fio2 helper functions.
+#' 
+#' @family helper
+#' 
+#' @param pao2 Arterial oxygen pressure (kPa)
+#' @param spo2 Peripheral oxygen saturation (%)
+#' @param fio2 Fraction inspired oxygen
+#' @param o2supply Oxygen supply (L/min)
+#' 
+#' @return pfratio
+pfratio_imputed <- function(pao2, spo2, fio2, oxygen_supply) {
+  # Impute missing PaO2 with SpO2
+  pao2 <- impute_pao2(pao2, spo2)
+
+  # Impute missing FiO2 with O2-supply
+  fio2 <- impute_fio2(fio2, oxygen_supply)
+
+  return(pao2/fio2)
+}
 
 #' SOFA respiration
 #' 
 #' This function calculates the respiratory part of the SOFA
 #' score. It needs either the PF-ratio or both PaO2 and FiO2.
-#' If PF-ratio is missing, the funcion will calculate it from
+#' If PF-ratio is missing, the function will calculate it from
 #' PaO2 and FiO2.
 #' 
 #' @family sofa
 #' 
+#' @param mechanical_ventilation Mechanical Ventilation (1=TRUE, 0=FALSE)
 #' @param pfratio P/F-ratio (kPa)
 #' @param pao2 PaO2 (kPa)
 #' @param fio2 FiO2
 #' 
 #' @return partial sofa score
-sofa_respiration <- function(pfratio, pao2, fio2) {
+sofa_respiration <- function(mechanical_ventilation, pfratio, pao2, fio2) {
   if(missing(pfratio)) {
     if(!missing(pao2) && !missing(fio2)) {
       pfratio <- pao2/fio2
@@ -135,14 +167,18 @@ sofa_respiration <- function(pfratio, pao2, fio2) {
       stop('Not enough parameters for sofa_respiration')
     }
   }
-  
-  sofa_pfratio <- ifelse(pfratio>=53.3,0,
-                         ifelse(pfratio>=40,1,
-                                ifelse(pfratio>=26.7,2,
-                                       ifelse(pfratio>=13.3,3,
-                                              ifelse(pfratio<13.3,4,NA)))))
-  
-  return(sofa_pfratio)
+
+  sofa_resp <- ifelse(pfratio < 13.3 & mechanical_ventilation == 1, 4, # <100 mmHg
+                  ifelse(pfratio < 26.7 & mechanical_ventilation == 1, 3, # <200 mmHg
+                    ifelse(pfratio < 40, 2, # <300 mmHg
+                      ifelse(pfratio < 53.3, 1, # <400 mmHg
+                        ifelse(pfratio >= 53.3, 0, NA) # >= 400 mmHg
+                      )
+                    )
+                  )
+                )
+
+  return(sofa_resp)
 }
 
 #' SOFA coagulation
@@ -279,6 +315,7 @@ sofa_renal <- function(creat) {
 #'  SpO2 = "SOFA_24h_SpO2",
 #'  FiO2 = "SOFA_24h_FiO2",
 #'  oxygen_supply = "SOFA_24h_oxygen_supply",
+#'  oxygen_mode = "SOFA_24h_oxygen_mode",
 #'  platelets = "SOFA_24h_platelets",
 #'  bilirubin = "SOFA_24h_bilirubin",
 #'  MAP = "SOFA_24h_MAP",
@@ -299,6 +336,7 @@ sofa_total <- function(df, column_mapping, return_df=FALSE){
   SpO2 = column_mapping["SpO2"]
   FiO2 = column_mapping["FiO2"]
   oxygen_supply = column_mapping["oxygen_supply"]
+  oxygen_mode = column_mapping["oxygen_mode"]
   platelets = column_mapping["platelets"]
   bilirubin = column_mapping["bilirubin"]
   MAP = column_mapping["MAP"]
@@ -309,35 +347,35 @@ sofa_total <- function(df, column_mapping, return_df=FALSE){
   norepinephrine_amp = column_mapping["norepinephrine_amp"]
   GCS = column_mapping["GCS"]
   creatinine = column_mapping["creatinine"]
-  
+
   ## Respiration
-  # Impute missing PaO2 with SpO2
-  df[[PaO2]] <- impute_pao2(df[[PaO2]], df[[SpO2]])
-  
-  # Impute missing FiO2 with O2-supply
-  df[[FiO2]] <- impute_fio2(df[[FiO2]], df[[oxygen_supply]])
-  
+  # Determine pfratio
+  pfratio <- pfratio_imputed(df[[PaO2]], df[[SpO2]], df[[FiO2]], df[[oxygen_supply]])
+
+  # Determine mechanical ventilation (by Acutelines scores: 35=CPAP, 40=optiflow, 50=tube)
+  mechanical_ventilation <- ifelse(df[[oxygen_mode]] >= 35, 1, 0)
+
   # Calc sofa score
-  score_respiration <- sofa_respiration(df[[PaO2]]/df[[FiO2]])
-  
+  score_respiration <- sofa_respiration(mechanical_ventilation, pfratio)
+
   ## Coagulation
   score_coagulation <- sofa_coagulation(df[[platelets]])
-  
+
   ## Liver
   score_liver <- sofa_liver(df[[bilirubin]])
-  
+
   ## Cardiovascular
-  score_cardiovascular <- sofa_cardiovascular(df[[MAP]], df[[dopamine]], df[[dobutamine]], df[[epinephrine]], df[[norepinephrine]], df[[norepinephrine]])
-  
+  score_cardiovascular <- sofa_cardiovascular(df[[MAP]], df[[dopamine]], df[[dobutamine]], df[[epinephrine]], df[[norepinephrine]], df[[norepinephrine_amp]])
+
   ## CNS
   score_CNS <- sofa_cns(df[[GCS]])
-  
+
   ## Renal
   score_renal <- sofa_renal(df[[creatinine]])
-  
+
   # Sum
   score_total <- rowSums(cbind(score_respiration, score_coagulation, score_liver, score_cardiovascular, score_CNS, score_renal), na.rm = TRUE)
-  
+
   if(return_df) {
     return <- data.frame(matrix(nrow=nrow(df)))
     return['SOFA_respiration'] <- score_respiration
@@ -379,22 +417,22 @@ sofa_magic_wrapper <- function(df, interval=24, timespan=72, return_df=FALSE,
                               naming.cols="SOFA_<interval>h_<variable>",
                               naming.result="SOFAscore_<interval>h_<variable>") {
   # Define the variables used in sofa_total()
-  variables <- c("PaO2", "SpO2", "FiO2", "oxygen_supply", "platelets", "bilirubin", "MAP", "dopamine", "dobutamine", "epinephrine", "norepinephrine", "norepinephrine_amp", "GCS", "creatinine")
-  
+  variables <- c("PaO2", "SpO2", "FiO2", "oxygen_supply", "oxygen_mode", "platelets","bilirubin", "MAP", "dopamine", "dobutamine", "epinephrine", "norepinephrine", "norepinephrine_amp", "GCS", "creatinine")
+
   # Iterate over each interval (hours generally)
   for(i in seq(interval, timespan, by=interval)) {
     # Substitute <interval> with current interval number
     varname <- gsub('<interval>', i, naming.cols)
     resultname <- gsub('<interval>', i, naming.result)
-    
+
     # Create empty column_mapping varirable for sofa_total()
     column_mapping <- c()
     # Iterate over previously defined needed columns
-    for(j in 1:length(variables)) {
+    for(j in seq_along(variables)) {
       # Substitute <variable> with actual variable name and save in column_mapping
       column_mapping[[variables[j]]] <- gsub('<variable>', variables[j], varname)
     }
-    
+
     # Pass the df and column_mapping for the interval to the sofa_total() function
     # and save the result in the dataframe
     df_temp <- sofa_total(df, unlist(column_mapping), return_df=TRUE)
@@ -409,6 +447,6 @@ sofa_magic_wrapper <- function(df, interval=24, timespan=72, return_df=FALSE,
     }
     df[[gsub('<variable>', 'total', resultname)]] <- df_temp$SOFA_total
   }
-  
+
   return(df)
 }

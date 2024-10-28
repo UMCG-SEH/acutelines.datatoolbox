@@ -41,6 +41,7 @@ column_mapping <- c(
   SpO2 = "your_SpO2_variable",
   FiO2 = "your_FiO2_variable",
   oxygen_supply = "your_oxygen_supply_variable",
+  oxygen_mode = "your_oxygen_mode_variable",
   platelets = "your_platelets_variable",
   bilirubin = "your_bilirubin_variable",
   MAP = "your_MAP_variable",
