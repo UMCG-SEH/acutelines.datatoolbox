@@ -7,7 +7,7 @@
 sofa_renal(creat)
 }
 \arguments{
-\item{create}{Creatinine}
+\item{create}{Creatinine (umol/L)}
 }
 \value{
 partial sofa score
@@ -18,7 +18,7 @@ score.
 }
 \details{
 This function ignores the urine output as defined in the SOFA score
-Reliable measurements of urine ouput in a retrospective dataset of
+Reliable measurements of urine output in a retrospective dataset of
 both deteriorated and not deteriorated patients are scarce.
 }
 \seealso{

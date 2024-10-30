@@ -3,6 +3,7 @@ title: "SOFA score calculation"
 output: rmarkdown::html_vignette
 bibliography: bibliography.bib
 link-citations: true
+reference-section-title: References
 csl: ama.csl
 vignette: >
   %\VignetteIndexEntry{SOFA score calculation}
@@ -21,10 +22,10 @@ knitr::opts_chunk$set(
 library(acutelines.datatoolbox)
 ```
 
-## Usage
+# Usage
 Asuming the data is loaded into a dataframe `df`, the SOFA score can be calculated in two different ways.
 
-### Automatic calculation
+## Automatic calculation
 Use the `sofa_magic_wrapper()` function when you use a raw data file from the Acutelines database. SOFA related variables are coded as `SOFA_[timespan]h_[variable]`. Make sure all variables are present.
 `interval` can be used to set the time stap interval in correspondance to your dataset, while `timespan` can be use to set the maximum timespan.
 
@@ -66,27 +67,39 @@ result <- sofa_total(df, column_mapping)
 ```
 </details>
 
-## Calculations
+# Calculations
 The SOFA (Sequential Organ Failure Assessment) [@Lambden2019; @Moreno2023] calculation functions are designed to provide the worst SOFA score for a patient within a specific interval.
 When retrospectively calculating the SOFA score, one must address missing values and inaccurately recorded values. This function automatically handles such issues.
 Consequently, the SOFA score functions incorporate several assumptions to ensure feasible calculations. Users should be aware of these assumptions when utilizing
 these functions.
 
-### Respiration
+## Respiratory system
 Many respiratory parameters tend to be missing. The `sofa_respiration()` function calculated the respiratory points of the SOFA score
 with the following rules and assumptions:
 
 1. If PaO2 is below 7 it is assumed venous and removed from the dataset.
 2. If PaO2 is missing, it is imputed from SpO2 using the Brows / Ellis equation [@BROWN2016307; @severinghaus1979]. Rounded by 1 decimal.
-3. If FiO2 is missing it is imputed from nasal canula oxygen supply using formula: $FiO_2 = 20+4Q_{O_2}$, where Q~O2~ is the oxygen flow in L/min.
+3. If FiO2 is missing it is imputed from nasal canula oxygen supply using formula: $FiO_2 = 20+4Q_{O_2}$, where $Q_{O_2}$ is the oxygen flow in L/min.
     + If the FiO2 is below 1, it is assumed a fraction and multiplied by 100 to make it a percentage.\
     + If the FiO2 is between 1 ans 21 is is assumed oxygen supply (L/min) and converted to FiO2.
-    + In case nasal canula oxygen supply is below or equaol to 15 L/min it is assumed to be FiO2.
+    + In case nasal canula oxygen supply is above or equal to 15 L/min it is assumed to be FiO2.
 
-### Coagulation
+## Coagulation
+Calculates the coagulation SOFA-score part based on platelet count (*10^3^ µL^-1^) using the `sofa_coagulation()` function. This section does not correct for unrealistic platelet counts, as this data is generally already curated by the lab.
 
-### Cardiovascular
+## Cardiovascular system
+Calculates the SOFA score component for the cardiovascular system using the `sofa_cardiovascular()` function. The first two levels (0 and 1 points) are based on Mean Arterial Pressure (MAP),
+while higher levels are determined by catecholamine administration. For dopamine, dobutamine, epinephrine, and norepinephrine, these
+dosages are need to be provied as µg/kg/min.
 
-### Central nervous system
+In some cases, norepinephrine is administered as a bolus rather than as a continuous infusion. This is recorded in the `norepinephrine_amp` variable,
+which is set to `1` (true) for bolus administration or `0` (false) otherwise. Since the amount of norepinephrine administered differentiates between 3
+and 4 points in the cardiovascular SOFA score, the script cannot automatically assign the correct point value. Therefore, **when norepinephrine is
+given, 3.5 points are assigned.** Researchers should decide whether to round this value up or down based on their specific research question.
 
-### Renal
+## Central Nervous System
+Calculates the SOFA score component for the central nervous system using the `sofa_cns()` function. Points are assigned based on the Glascow Coma Score (GCS).
+
+## Renal
+Calculates the SOFA score compontent for the renal function using the `sofa_renal()` function. Points are assigned based on the creatinine level (µmol/L).
+This section does not correct for unrealistic creatinine levels, as this data is generally already curated by the lab.

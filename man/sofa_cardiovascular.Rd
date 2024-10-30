@@ -2,7 +2,7 @@
 % Please edit documentation in R/sofa.r
 \name{sofa_cardiovascular}
 \alias{sofa_cardiovascular}
-\title{SOFA cardiovacular}
+\title{SOFA cardiovascular}
 \usage{
 sofa_cardiovascular(
   map,
@@ -38,7 +38,7 @@ score.
 Due to inconsistent registration of norepinephrine dosages,
 it's not possible to distinguish between high (>0.1) and
 low (<=0.1) dosage of norepinephrine.
-When norephenrine is present 3.5 points are given.
+When norepinephrine is present 3.5 points are given.
 Researchers can either round this to 4 (overestimate),
 3 (underestimate) or leave it as is.
 }

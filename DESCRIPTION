@@ -3,9 +3,10 @@ Title: Toolbox to work with Acutelines biobank data.
 Version: 0.0.0.5
 Authors@R: c(
     person(given=c("Raymond", "J."), "van Wijk", , "r.j.van.wijk@umcg.nl", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2106-7699")),
+    person("Carolina", "Hincapié-Osorno", , role = c("aut"), comment = c(ORCID = "0000-0001-8582-1614")),
     person("Tamar", "van der Aart", , role = c("ctb")),
     person("Sanne", "Ter Horst", , role = c("ctb")),
-    person("Carolina", "Hincapié-Osorno", , role = c("ctb"), comment = c(ORCID = "0000-0001-8582-1614"))
+    person(given="Acutelines, UMCG", email="acutelines@umcg.nl", role = c("cph"))
     )
 Description: This package can be used to work with data extracted from the Acutelines data- and biobank.
     It provides tools to parse data extracts and perform calculations in a uniform matter.
