@@ -55,6 +55,30 @@ o2supply_to_fio2 <- function(o2supply) {
   return(ifelse(o2supply<=15, (20+(4*o2supply)), o2supply))
 }
 
+#' Clean SpO2
+#' 
+#' Clean SpO2 values based on several rules.
+#' 
+#' Rules include cleaning on impossible values and on common mistakes
+#' or switch-ups when entering data in the EHR.
+#' Note: function is currently empty, but allows for future expansion.
+#' 
+#' @param spo2 Peripheral oxygen saturation (%)
+#' 
+#' @family respiration
+#' @family cleaning
+#' 
+#' @return spo2 (%)
+clean_spo2 <- function(spo2) {
+  # Remove SpO2 below 50%, because unreliable
+  spo2[spo2 < 50] <- NA
+
+  # Note: Note: Pulse oximeters are only calibrated for SpO2 values
+  # between 70-100%. Values below 70% should be considered qualitatively
+  # rather than quantitatively accurate. Treat 50-70% as 70%?
+
+  return(spo2)
+}
 
 #' Impute PaO2 with SpO2
 #' 
@@ -63,7 +87,9 @@ o2supply_to_fio2 <- function(o2supply) {
 #' PaO2 is missing in many cases, as arterial blood gass analysis
 #' is only performed when needed. To fill those gaps, this function
 #' converts SpO2 (%) to PaO2 (kPa) in case the PaO2 is missing in
-#' the dataset. This functions uses [spo2_to_pao2()].
+#' the dataset. If SpO2 is >=97%, the PaO2 is set to 14.7 kPa,
+#' because the oxygen dissociation curve is not valid to use in this
+#' range. This functions uses [spo2_to_pao2()].
 #' 
 #' @family respiration
 #' 
@@ -72,10 +98,16 @@ o2supply_to_fio2 <- function(o2supply) {
 #'
 #' @return pao2
 impute_pao2 <- function(pao2, spo2) {
-  # Replace PaO2<7 (probably venous) with NA
+  # Replace PaO2<7 (probably venous) with NA to allow interpolation by SpO2
   pao2[pao2 < 7] <- NA
-  # Replace all missing values with estimated PaO2 based on SpO2
-  pao2[is.na(pao2)] <- round(spo2_to_pao2(spo2[is.na(pao2)]),1)
+
+  # Get all SpO2 for missing PaO2 and SpO2 <97%
+  spo2_missing_pao2 <- spo2[is.na(pao2) & spo2 < 97]
+  # Replace all missing PaO2 values with estimated PaO2 based on SpO2 if SpO2 <97%
+  pao2[is.na(pao2)] <- round(spo2_to_pao2(spo2_missing_pao2),1)
+
+  # Set PaO2 to 14.7 kPa (110 mmHg) if SpO2 is 97% or higher
+  pao2[is.na(pao2) & spo2 >= 97] <- 14.7
   
   return(pao2)
 }
@@ -148,6 +180,9 @@ impute_fio2 <- function(fio2, o2supply) {
 #' 
 #' @return pfratio
 pfratio_imputed <- function(pao2, spo2, fio2, oxygen_supply) {
+  # Clean SpO2 values
+  spo2 <- clean_spo2(spo2)
+
   # Impute missing PaO2 with SpO2
   pao2 <- impute_pao2(pao2, spo2)
 
