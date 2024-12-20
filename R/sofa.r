@@ -213,7 +213,7 @@ sofa_total <- function(df, column_mapping, return_df=FALSE){
 
   ## Respiration
   # Determine pfratio
-  pfratio <- pfratio_imputed(df[[PaO2]], df[[SpO2]], df[[FiO2]], df[[oxygen_supply]])
+  pfratio <- pfratio_imputed(df[[PaO2]], df[[SpO2]], df[[FiO2]], df[[oxygen_supply]], df[[oxygen_mode]])
 
   # Determine mechanical ventilation (by Acutelines scores: 35=CPAP, 40=optiflow, 50=tube)
   mechanical_ventilation <- ifelse(df[[oxygen_mode]] >= 35, 1, 0)

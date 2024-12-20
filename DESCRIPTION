@@ -13,6 +13,8 @@ Description: This package can be used to work with data extracted from the Acute
 URL: https://umcg-seh.github.io/acutelines.datatoolbox/, https://github.com/UMCG-SEH/acutelines.datatoolbox
 BugReports: https://github.com/UMCG-SEH/acutelines.datatoolbox/issues
 License: MIT + file LICENSE
+Imports:
+    dplyr (>= 1.1.4)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1

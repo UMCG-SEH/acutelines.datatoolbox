@@ -78,7 +78,7 @@ Many respiratory parameters tend to be missing. The `sofa_respiration()` functio
 with the following rules and assumptions:
 
 1. If PaO2 is below 7 it is assumed venous and removed from the dataset.
-2. If PaO2 is missing, it is imputed from SpO2 using the Brows / Ellis equation [@BROWN2016307; @severinghaus1979]. Rounded by 1 decimal.
+2. If PaO2 is missing, it is imputed from SpO2 using Brown's equation [@BROWN2016307]. Rounded by 1 decimal.
 3. If FiO2 is missing it is imputed from nasal canula oxygen supply using formula: $FiO_2 = 20+4Q_{O_2}$, where $Q_{O_2}$ is the oxygen flow in L/min.
     + If the FiO2 is below 1, it is assumed a fraction and multiplied by 100 to make it a percentage.\
     + If the FiO2 is between 1 ans 21 is is assumed oxygen supply (L/min) and converted to FiO2.
