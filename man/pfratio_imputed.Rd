@@ -4,7 +4,7 @@
 \alias{pfratio_imputed}
 \title{Calculate P/F-ratio}
 \usage{
-pfratio_imputed(pao2, spo2, fio2, oxygen_supply)
+pfratio_imputed(pao2, spo2, fio2, o2supply, o2system)
 }
 \arguments{
 \item{pao2}{Arterial oxygen pressure (kPa)}
@@ -14,6 +14,8 @@ pfratio_imputed(pao2, spo2, fio2, oxygen_supply)
 \item{fio2}{Fraction inspired oxygen (\%)}
 
 \item{o2supply}{Oxygen supply (L/min)}
+
+\item{o2system}{Oxygen supply method (ranked 0-50)}
 }
 \value{
 pfratio
@@ -27,6 +29,7 @@ This function uses \code{\link[=impute_pao2]{impute_pao2()}}, \code{\link[=clean
 \seealso{
 Other respiration: 
 \code{\link{clean_fio2}()},
+\code{\link{clean_spo2}()},
 \code{\link{impute_fio2}()},
 \code{\link{impute_pao2}()},
 \code{\link{o2supply_to_fio2}()},

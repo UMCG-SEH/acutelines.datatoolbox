@@ -151,6 +151,7 @@ sofa_cns <- function(gcs) {
 #' 
 #' @return partial sofa score
 sofa_renal <- function(creat) {
+
   sofa_creat <- ifelse(creat<110,0,
                        ifelse(creat<171,1,
                               ifelse(creat<301,2,

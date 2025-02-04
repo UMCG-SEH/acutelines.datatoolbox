@@ -4,12 +4,14 @@
 \alias{impute_fio2}
 \title{Impute FiO2}
 \usage{
-impute_fio2(fio2, o2supply)
+impute_fio2(fio2, o2supply, o2system)
 }
 \arguments{
 \item{fio2}{Fraction inspired oxygen (\%)}
 
 \item{o2supply}{Oxygen supply (L/min)}
+
+\item{o2system}{Oxygen supply method}
 }
 \value{
 fio2
@@ -21,7 +23,7 @@ missing, impute with 21\% (ambient air).
 }
 \details{
 FiO2 is missing in many cases. To fill those gaps, this function
-converts the oxygen supply by nasal cannula (L/min) to FiO2
+converts the oxygen supply (L/min) to FiO2 based on the oxygen delivery device
 in case the FiO2 is missing in the dataset. When also the
 oxygen supply is missing, the FiO2 is imputed with 21\%,
 the ambient air oxygen percentage. This functions uses \code{\link[=o2supply_to_fio2]{o2supply_to_fio2()}}
@@ -29,6 +31,7 @@ the ambient air oxygen percentage. This functions uses \code{\link[=o2supply_to_
 \seealso{
 Other respiration: 
 \code{\link{clean_fio2}()},
+\code{\link{clean_spo2}()},
 \code{\link{impute_pao2}()},
 \code{\link{o2supply_to_fio2}()},
 \code{\link{pfratio_imputed}()},

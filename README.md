@@ -36,5 +36,27 @@ Load the package:
 library(acutelines.datatoolbox)
 ```
 
+### Install specific version
+If you want to install a specific version of the package for legacy purposes, mention the version number with `@` in the `install_github` command:
+
+``` R
+install_github("UMCG-SEH/acutelines.datatoolbox@v0.0.0.6")
+```
+
+After that load and use the package as you normally do.
+
 ## Getting started
 After installation, you can process the data depending on your data extract. Refer to the Articles section in the [documentation](https://umcg-seh.github.io/acutelines.datatoolbox/) for a general introduction.
+
+Start by importing your dataset from CSV, for example:
+
+``` R
+df <- read.csv("path/to/data/file.csv",
+               header = TRUE, # Import CSV header (first line) as column names
+               sep = ";", # Set CSV columns separator
+               dec = ".", # Set CSV decimal separator for numbers
+               fileEncoding = "UTF-8-BOM", # Set file encoding format, change or ommit according to file type
+               na.strings=c("NA","NaN", " ", "\\N", "NULL")) # Set which values are considered NA
+```
+
+Then run the desired functions from the Acutelines Datatoolbox, eg: `sofa_magic_wrapper()`.

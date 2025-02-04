@@ -21,11 +21,14 @@ If PaO2 is missing replace with PaO2 calculated from SpO2.
 PaO2 is missing in many cases, as arterial blood gass analysis
 is only performed when needed. To fill those gaps, this function
 converts SpO2 (\%) to PaO2 (kPa) in case the PaO2 is missing in
-the dataset. This functions uses \code{\link[=spo2_to_pao2]{spo2_to_pao2()}}.
+the dataset. If SpO2 is >=97\%, the PaO2 is set to 14.7 kPa,
+because the oxygen dissociation curve is not valid to use in this
+range. This functions uses \code{\link[=spo2_to_pao2]{spo2_to_pao2()}}.
 }
 \seealso{
 Other respiration: 
 \code{\link{clean_fio2}()},
+\code{\link{clean_spo2}()},
 \code{\link{impute_fio2}()},
 \code{\link{o2supply_to_fio2}()},
 \code{\link{pfratio_imputed}()},

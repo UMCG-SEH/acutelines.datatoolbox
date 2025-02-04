@@ -62,11 +62,24 @@ spo2_to_pao2 <- function(spo2) {
 #' 
 #' @return fio2 fraction inspirated oxygen
 o2supply_to_fio2 <- function(o2supply, o2system) {
-  #TODO: If only oxygen mode is available, the maximum FiO₂ for that mode is used, following the hospital guidelines.
+  #If only oxygen mode is available, the maximum FiO₂ for that mode is used, following the hospital guidelines.
+  o2supply <- dplyr::case_when(
+    # Nasal cannula
+    o2system == 20 & o2supply == NA ~ 6,
+
+    # Venturi mask and Non-rebreather
+    (o2system == 25 | o2system == 30) & o2supply == NA ~ 15,
+
+    # CPAP and Optiflow
+    (o2system == 35 | o2system == 40) & o2supply == NA ~ 60,
+  )
   
   fio2 <- dplyr::case_when(
     # Nasal cannula
     o2system == 20 ~ 20 + (4 * o2supply),
+
+    # Simple face mask
+    # Not implemented, not used in UMCG. Can be implemented for future datasets.
     
     # Venturi mask
     o2system == 25 & o2supply == 2 ~ 24,
@@ -77,13 +90,10 @@ o2supply_to_fio2 <- function(o2supply, o2system) {
     o2system == 25 & o2supply == 15 ~ 60,
     
     # Non-rebreather
-    o2system == 30 ~ 60 + (o2supply - 10) * 6,
+    o2system == 30 & o2supply >=10 & o2supply <= 15 ~ 60 + (o2supply - 10) * 6,
     
-    # CPAP merge with optiflow?
-    #o2system == 35 ~ 30 + (o2supply - 5) * 2,
-    
-    # Optiflow TODO: fix calcualtion to limit it to 100%
-    o2system == 40 ~ 30 + (o2supply - 5) * 2
+    # CPAP and Optiflow
+    (o2system == 35 | o2system == 40) & o2supply <= 60 ~ 30 + ((o2supply - 1) * 70)/59
     
     # Default case for missing values
     #TRUE ~ NA_real_
@@ -98,7 +108,7 @@ o2supply_to_fio2 <- function(o2supply, o2system) {
 #' 
 #' Rules include cleaning on impossible values and on common mistakes
 #' or switch-ups when entering data in the EHR.
-#' Note: function is currently empty, but allows for future expansion.
+#' Remove Spo2<50 and convert 50-70 to 70%.
 #' 
 #' @param spo2 Peripheral oxygen saturation (%)
 #' 

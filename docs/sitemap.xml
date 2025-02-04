@@ -1,16 +1,17 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://umcg-seh.github.io/acutelines.datatoolbox/404.html</loc></url>
-<url><loc>https://umcg-seh.github.io/acutelines.datatoolbox/articles/index.html</loc></url>
-<url><loc>https://umcg-seh.github.io/acutelines.datatoolbox/articles/SOFA-score.html</loc></url>
-<url><loc>https://umcg-seh.github.io/acutelines.datatoolbox/authors.html</loc></url>
 <url><loc>https://umcg-seh.github.io/acutelines.datatoolbox/DEVELOPMENT.html</loc></url>
-<url><loc>https://umcg-seh.github.io/acutelines.datatoolbox/index.html</loc></url>
 <url><loc>https://umcg-seh.github.io/acutelines.datatoolbox/LICENSE-text.html</loc></url>
 <url><loc>https://umcg-seh.github.io/acutelines.datatoolbox/LICENSE.html</loc></url>
+<url><loc>https://umcg-seh.github.io/acutelines.datatoolbox/articles/SOFA-score.html</loc></url>
+<url><loc>https://umcg-seh.github.io/acutelines.datatoolbox/articles/index.html</loc></url>
+<url><loc>https://umcg-seh.github.io/acutelines.datatoolbox/authors.html</loc></url>
+<url><loc>https://umcg-seh.github.io/acutelines.datatoolbox/index.html</loc></url>
 <url><loc>https://umcg-seh.github.io/acutelines.datatoolbox/news/index.html</loc></url>
 <url><loc>https://umcg-seh.github.io/acutelines.datatoolbox/reference/acutelines.datatoolbox-package.html</loc></url>
 <url><loc>https://umcg-seh.github.io/acutelines.datatoolbox/reference/cbrt.html</loc></url>
 <url><loc>https://umcg-seh.github.io/acutelines.datatoolbox/reference/clean_fio2.html</loc></url>
+<url><loc>https://umcg-seh.github.io/acutelines.datatoolbox/reference/clean_spo2.html</loc></url>
 <url><loc>https://umcg-seh.github.io/acutelines.datatoolbox/reference/impute_fio2.html</loc></url>
 <url><loc>https://umcg-seh.github.io/acutelines.datatoolbox/reference/impute_pao2.html</loc></url>
 <url><loc>https://umcg-seh.github.io/acutelines.datatoolbox/reference/index.html</loc></url>

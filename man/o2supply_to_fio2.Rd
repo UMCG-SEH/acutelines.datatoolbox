@@ -4,10 +4,20 @@
 \alias{o2supply_to_fio2}
 \title{O2-supply to FiO2}
 \usage{
-o2supply_to_fio2(o2supply)
+o2supply_to_fio2(o2supply, o2system)
 }
 \arguments{
 \item{o2supply}{Oxygen supply (L/min)}
+
+\item{o2system}{Oxygen supply method
+50 = tube
+40 = optiflow
+35 = cpap
+30 = non-rebreather
+25 = venturi mask
+20 = nasal cannula
+10 = nebulizer
+0 = none (ambient air)}
 }
 \value{
 fio2 fraction inspirated oxygen
@@ -24,6 +34,7 @@ considered as FiO2.
 \seealso{
 Other respiration: 
 \code{\link{clean_fio2}()},
+\code{\link{clean_spo2}()},
 \code{\link{impute_fio2}()},
 \code{\link{impute_pao2}()},
 \code{\link{pfratio_imputed}()},
