@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Toolbox to work with Acutelines biobank data.">
 <meta name="description" content="This package can be used to work with data extracted from the Acutelines data- and biobank. It provides tools to parse data extracts and perform calculations in a uniform matter.">
 <meta property="og:description" content="This package can be used to work with data extracted from the Acutelines data- and biobank. It provides tools to parse data extracts and perform calculations in a uniform matter.">
@@ -89,11 +89,28 @@
 <p>Load the package:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://umcg-seh.github.io/acutelines.datatoolbox/">acutelines.datatoolbox</a></span><span class="op">)</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="install-specific-version">Install specific version<a class="anchor" aria-label="anchor" href="#install-specific-version"></a>
+</h3>
+<p>If you want to install a specific version of the package for legacy purposes, mention the version number with <code>@</code> in the <code>install_github</code> command:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"UMCG-SEH/acutelines.datatoolbox@v0.0.0.6"</span><span class="op">)</span></span></code></pre></div>
+<p>After that load and use the package as you normally do.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
 <p>After installation, you can process the data depending on your data extract. Refer to the Articles section in the <a href="https://umcg-seh.github.io/acutelines.datatoolbox/">documentation</a> for a general introduction.</p>
+<p>Start by importing your dataset from CSV, for example:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"path/to/data/file.csv"</span>,</span>
+<span>               header <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># Import CSV header (first line) as column names</span></span>
+<span>               sep <span class="op">=</span> <span class="st">";"</span>, <span class="co"># Set CSV columns separator</span></span>
+<span>               dec <span class="op">=</span> <span class="st">"."</span>, <span class="co"># Set CSV decimal separator for numbers</span></span>
+<span>               fileEncoding <span class="op">=</span> <span class="st">"UTF-8-BOM"</span>, <span class="co"># Set file encoding format, change or ommit according to file type</span></span>
+<span>               na.strings<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NA"</span>,<span class="st">"NaN"</span>, <span class="st">" "</span>, <span class="st">"\\N"</span>, <span class="st">"NULL"</span><span class="op">)</span><span class="op">)</span> <span class="co"># Set which values are considered NA</span></span></code></pre></div>
+<p>Then run the desired functions from the Acutelines Datatoolbox, eg: <code><a href="reference/sofa_magic_wrapper.html">sofa_magic_wrapper()</a></code>.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">

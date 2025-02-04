@@ -17,6 +17,7 @@ reference:
   desc: Collection of function to clean and impute respiratory parameters
 - contents:
   - clean_fio2
+  - clean_spo2
   - impute_fio2
   - impute_pao2
   - pfratio_imputed

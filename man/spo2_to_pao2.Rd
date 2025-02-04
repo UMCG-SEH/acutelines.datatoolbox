@@ -13,7 +13,7 @@ spo2_to_pao2(spo2)
 pao2 Calculated PaO2 (kPa)
 }
 \description{
-Convert SpO2 to PaO2 based on Brown / Ellis equation
+Convert SpO2 to PaO2 based on Brown / Ellis / Severinghaus equation
 }
 \details{
 Converts SpO2 percentages to PaO2 values in kPa. This is based
@@ -23,11 +23,14 @@ Ellis.
 \references{
 \href{https://doi.org/10.1016/j.chest.2016.01.003}{10.1016/j.chest.2016.01.003}
 
+\href{https://doi.org/10.1152/jappl.1989.67.2.902}{10.1152/jappl.1989.67.2.902}
+
 \href{https://doi.org/10.1152/jappl.1979.46.3.599}{10.1152/jappl.1979.46.3.599}
 }
 \seealso{
 Other respiration: 
 \code{\link{clean_fio2}()},
+\code{\link{clean_spo2}()},
 \code{\link{impute_fio2}()},
 \code{\link{impute_pao2}()},
 \code{\link{o2supply_to_fio2}()},

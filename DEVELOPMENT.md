@@ -1,6 +1,8 @@
 # Development instructions
 
-Install R `devtools`, `roxygen2` and `pkgdown`.
+Install R `devtools`, `roxygen2` and `pkgdown`:
+
+    install.packages(c("devtools", "roxygen2", "pkgdown"))
 
 Run local developed changes:
 

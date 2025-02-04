@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="SOFA score calculation">
 </head>
 <body>
@@ -84,7 +84,10 @@ data file from the Acutelines database. SOFA related variables are coded
 as <code>SOFA_[timespan]h_[variable]</code>. Make sure all variables are
 present. <code>interval</code> can be used to set the time stap interval
 in correspondance to your dataset, while <code>timespan</code> can be
-use to set the maximum timespan.</p>
+use to set the maximum timespan. By default <code>return_df</code> is
+<code>FALSE</code> and can be left out, if set to <code>TRUE</code> the
+function will return all the inidivual elements of the SOFA scora
+instead of only the totals.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sofa_magic_wrapper.html">sofa_magic_wrapper</a></span><span class="op">(</span><span class="va">df</span>, interval<span class="op">=</span><span class="fl">24</span>, timespan<span class="op">=</span><span class="fl">72</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
@@ -123,8 +126,8 @@ dataframe:</p>
 <div class="section level2">
 <h2 id="calculations">Calculations<a class="anchor" aria-label="anchor" href="#calculations"></a>
 </h2>
-<p>The SOFA (Sequential Organ Failure Assessment)<span class="citation"><sup><a href="#ref-Lambden2019">1</a>,<a href="#ref-Moreno2023">2</a></sup></span> calculation functions are
-designed to provide the worst SOFA score for a patient within a specific
+<p>The SOFA (Sequential Organ Failure Assessment) <span class="citation">[<a href="#ref-Lambden2019">1</a>,<a href="#ref-Moreno2023">2</a>]</span> calculation functions are designed
+to provide the worst SOFA score for a patient within a specific
 interval. When retrospectively calculating the SOFA score, one must
 address missing values and inaccurately recorded values. This function
 automatically handles such issues. Consequently, the SOFA score
@@ -134,32 +137,182 @@ these functions.</p>
 <div class="section level3">
 <h3 id="respiratory-system">Respiratory system<a class="anchor" aria-label="anchor" href="#respiratory-system"></a>
 </h3>
+<table style="width:95%;" class="table">
+<colgroup>
+<col width="27%">
+<col width="11%">
+<col width="11%">
+<col width="11%">
+<col width="16%">
+<col width="15%">
+</colgroup>
+<thead><tr class="header">
+<th>Points</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>PaO<sub>2</sub>/FiO<sub>2</sub> (mmHg)</td>
+<td>≥400</td>
+<td>&lt;400</td>
+<td>&lt;300</td>
+<td>&lt;200</td>
+<td>&lt;100</td>
+</tr>
+<tr class="even">
+<td></td>
+<td colspan="3">NOT mechanically ventilated</td>
+<td colspan="2">with respiratory support</td>
+</tr>
+</tbody>
+</table>
 <p>Many respiratory parameters tend to be missing. The
 <code><a href="../reference/sofa_respiration.html">sofa_respiration()</a></code> function calculated the respiratory
 points of the SOFA score with the following rules and assumptions:</p>
+<div class="section level4">
+<h4 id="pao2">PaO<sub>2</sub><a class="anchor" aria-label="anchor" href="#pao2"></a>
+</h4>
 <ol style="list-style-type: decimal">
-<li>If PaO2 is below 7 it is assumed venous and removed from the
-dataset.</li>
-<li>If PaO2 is missing, it is imputed from SpO2 using the Brows / Ellis
-equation<span class="citation"><sup><a href="#ref-BROWN2016307">3</a>,<a href="#ref-severinghaus1979">4</a></sup></span>. Rounded by 1
-decimal.</li>
-<li>If FiO2 is missing it is imputed from nasal canula oxygen supply
-using formula:
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mi>i</mi><msub><mi>O</mi><mn>2</mn></msub><mo>=</mo><mn>20</mn><mo>+</mo><mn>4</mn><msub><mi>Q</mi><msub><mi>O</mi><mn>2</mn></msub></msub></mrow><annotation encoding="application/x-tex">FiO_2 = 20+4Q_{O_2}</annotation></semantics></math>,
-where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Q</mi><msub><mi>O</mi><mn>2</mn></msub></msub><annotation encoding="application/x-tex">Q_{O_2}</annotation></semantics></math>
-is the oxygen flow in L/min.
-<ul>
-<li>If the FiO2 is below 1, it is assumed a fraction and multiplied by
-100 to make it a percentage.<br>
+<li>Venous PaO<sub>2</sub>:<br>
+If PaO<sub>2</sub> is below 7 kPa, it is assumed to be venous and
+removed from the dataset. The next available value will be used if
+possible; otherwise, it will be marked as missing.</li>
+<li>Low SpO<sub>2</sub>:<br>
+If SpO<sub>2</sub> is below 50%, the value is removed from the dataset
+and it is treated as missing <a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;When extracted from the Acutelines database the next
+available value is used if possible, otherwise it is marked as
+missing.&lt;/p&gt;"><sup>1</sup></a>. Note: Pulse oximeters are only calibrated
+for SpO<sub>2</sub> values between 70-100%. Values below 70% should be
+considered qualitatively rather than quantitatively accurate and are
+therefore set to 70%. <span class="citation">[<a href="#ref-CHAN2013789">3</a>]</span>
 </li>
-<li>If the FiO2 is between 1 ans 21 is is assumed oxygen supply (L/min)
-and converted to FiO2.</li>
-<li>In case nasal canula oxygen supply is above or equal to 15 L/min it
-is assumed to be FiO2.</li>
+<li>Approximation using SpO<sub>2</sub>:<br>
+When PaO<sub>2</sub> is unknown (e.g., arterial blood gas not
+available), it is imputed from SpO<sub>2</sub> using the Brown’s
+equation <span class="citation">[<a href="#ref-BROWN2016307">4</a>]</span>. Rounded to one decimal place.
+Imputation is unreliable for SpO<sub>2</sub> &gt;96% due to the
+hemoglobin-oxygen dissociation curve plateau. Therefore, a
+PaO<sub>2</sub> of 110 mmHg is used as a substitute for SpO<sub>2</sub>
+≥97% to avoid overestimation. <span class="citation">[<a href="#ref-severinghaus1979">5</a>]</span>
+</li>
+<li>Missing Values:<br>
+If both PaO<sub>2</sub> and SpO<sub>2</sub> are unavailable, the value
+is treated as missing. Consequently, no points will be assigned to this
+domain.</li>
+</ol>
+</div>
+<div class="section level4">
+<h4 id="fio2">FiO<sub>2</sub><a class="anchor" aria-label="anchor" href="#fio2"></a>
+</h4>
+<ol style="list-style-type: decimal">
+<li>Values Above 100: If FiO<sub>2</sub> ≥101, it is capped at 100 as
+values above this are not physiologically possible. This issue
+originates from certain devices where the calculation of FiO<sub>2</sub>
+is automated by an algorithm using specific parameters. In some
+situations, these algorithms may erroneously report values greater than
+100, which is technically impossible. To address this, such values are
+adjusted to a maximum of 100.</li>
+<li>FiO<sub>2</sub> as zero value:<br>
+If FiO<sub>2</sub> = 0, it is treated as missing.<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;When extracted from the Acutelines database the next
+available value is used if possible, otherwise it is marked as
+missing.&lt;/p&gt;"><sup>2</sup></a>
+</li>
+<li>High FiO<sub>2</sub> with no other respiratory data:<br>
+If FiO<sub>2</sub> ≥85 and no oxygen delivery device is known and
+(Oxygen flow is zero or missing), this is likely an SpO<sub>2</sub>
+confusion on data entry. The value is treated as missing.<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;When extracted from the Acutelines database the next
+available value is used if possible, otherwise it is marked as
+missing.&lt;/p&gt;"><sup>3</sup></a>
+</li>
+<li>Fractional FiO<sub>2</sub> Values:<br>
+If FiO<sub>2</sub> is below 1, it is assumed to be a fraction and
+multiplied by 100 to convert it to a percentage.</li>
+<li>Low FiO<sub>2</sub> Values:<br>
+If FiO<sub>2</sub> is between 1 and 21, it is treated as missing.<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;When extracted from the Acutelines database the next
+available value is used if possible, otherwise it is marked as
+missing.&lt;/p&gt;"><sup>4</sup></a>
+</li>
+<li>Estimation from type of O<sub>2</sub> delivery and flow rate:
+<ul>
+<li>If FiO<sub>2</sub> is missing but oxygen supplementation type and
+flow rate are available, the FiO<sub>2</sub> is estimated using the
+table below.</li>
+<li>If only oxygen mode is available, the maximum FiO<sub>2</sub> for
+that mode is used.</li>
+<li>Estimating FiO<sub>2</sub> from oxygen flow/delivery rates:</li>
 </ul>
 </li>
 </ol>
+<table style="width:98%;" class="table">
+<colgroup>
+<col width="25%">
+<col width="15%">
+<col width="23%">
+<col width="33%">
+</colgroup>
+<thead><tr class="header">
+<th>Type of O<sub>2</sub> delivery</th>
+<th>Flowrate (L/min)</th>
+<th>FiO<sub>2</sub>
+</th>
+<th>Formula</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Nasal cannula</td>
+<td>1<br>
+2<br>
+3<br>
+4<br>
+5<br>
+6<br>
+</td>
+<td>24%<br>
+28%<br>
+32%<br>
+36%<br>
+40%<br>
+44%<br>
+</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mi>i</mi><msub><mi>O</mi><mn>2</mn></msub><mo>=</mo><mn>20</mn><mo>+</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>4</mn><mo>*</mo><mi>Q</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">FiO_{2} = 20+(4*Q)</annotation></semantics></math></td>
+</tr>
+<tr class="even">
+<td>Non-rebreather mask</td>
+<td>10-15</td>
+<td>~60-90%</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mi>i</mi><msub><mi>O</mi><mn>2</mn></msub><mo>=</mo><mn>60</mn><mo>+</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>Q</mi><mi>–</mi><mn>10</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>*</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">FiO_{2} = 60 + (Q – 10) * 6</annotation></semantics></math></td>
+</tr>
+<tr class="odd">
+<td>Venturi Mask</td>
+<td>2<br>
+4<br>
+6<br>
+8<br>
+10<br>
+15<br>
+</td>
+<td>24%<br>
+28%<br>
+31%<br>
+35%<br>
+40%<br>
+60%<br>
+</td>
+<td>n/a</td>
+</tr>
+<tr class="even">
+<td>High-flow nasal cannula (optiflow or cpap)</td>
+<td>Up to 60</td>
+<td>30-100%</td>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mi>i</mi><msub><mi>O</mi><mn>2</mn></msub><mo>=</mo><mn>30</mn><mo>+</mo><mfrac><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>Q</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>*</mo><mn>70</mn></mrow><mn>59</mn></mfrac></mrow><annotation encoding="application/x-tex">FiO_{2} = 30 + \frac{(Q - 1) * 70}{59}</annotation></semantics></math></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="section level3">
 <h3 id="coagulation">Coagulation<a class="anchor" aria-label="anchor" href="#coagulation"></a>
@@ -169,6 +322,32 @@ is assumed to be FiO2.</li>
 <code><a href="../reference/sofa_coagulation.html">sofa_coagulation()</a></code> function. This section does not correct
 for unrealistic platelet counts, as this data is generally already
 curated by the lab.</p>
+<table style="width:95%;" class="table">
+<colgroup>
+<col width="44%">
+<col width="9%">
+<col width="10%">
+<col width="10%">
+<col width="9%">
+<col width="9%">
+</colgroup>
+<thead><tr class="header">
+<th>Points</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td>Platelet Count (*10<sup>3</sup> µL<sup>-1</sup>)</td>
+<td>≥ 150</td>
+<td>&lt; 150</td>
+<td>&lt; 100</td>
+<td>&lt; 50</td>
+<td>&lt; 20</td>
+</tr></tbody>
+</table>
 </div>
 <div class="section level3">
 <h3 id="cardiovascular-system">Cardiovascular system<a class="anchor" aria-label="anchor" href="#cardiovascular-system"></a>
@@ -177,8 +356,36 @@ curated by the lab.</p>
 using the <code><a href="../reference/sofa_cardiovascular.html">sofa_cardiovascular()</a></code> function. The first two
 levels (0 and 1 points) are based on Mean Arterial Pressure (MAP), while
 higher levels are determined by catecholamine administration. For
-dopamine, dobutamine, epinephrine, and norepinephrine, these dosages are
+dopamine, dobutamine, epinephrine, and norepinephrine, these dosages
 need to be provied as µg/kg/min.</p>
+<table style="width:99%;" class="table">
+<colgroup>
+<col width="3%">
+<col width="8%">
+<col width="15%">
+<col width="17%">
+<col width="26%">
+<col width="27%">
+</colgroup>
+<thead><tr class="header">
+<th>Points</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td>Criteria</td>
+<td>MAP ≥ 70 mmHg</td>
+<td>MAP &lt; 70 mmHg</td>
+<td>Dopamine ≤ 5 µg/kg/min OR Dobutamine (any dose)</td>
+<td>Dopamine &gt; 5 µg/kg/min OR Epinephrine ≤ 0.1 µg/kg/min OR
+Norepinephrine ≤ 0.1 µg/kg/min</td>
+<td>Dopamine &gt; 15 µg/kg/min OR Epinephrine &gt; 0.1 µg/kg/min OR
+Norepinephrine &gt; 0.1 µg/kg/min</td>
+</tr></tbody>
+</table>
 <p>In some cases, norepinephrine is administered as a bolus rather than
 as a continuous infusion. This is recorded in the
 <code>norepinephrine_amp</code> variable, which is set to <code>1</code>
@@ -191,11 +398,83 @@ should decide whether to round this value up or down based on their
 specific research question.</p>
 </div>
 <div class="section level3">
+<h3 id="liver">Liver<a class="anchor" aria-label="anchor" href="#liver"></a>
+</h3>
+<p>Calculates the SOFA score component for the liver using the
+<code><a href="../reference/sofa_liver.html">sofa_liver()</a></code> function. Points are assigned according to the
+following table. Bilirubin levels should be entered in μmol/L, mg/dL
+only for reference.</p>
+<table style="width:95%;" class="table">
+<colgroup>
+<col width="31%">
+<col width="9%">
+<col width="13%">
+<col width="13%">
+<col width="15%">
+<col width="10%">
+</colgroup>
+<thead><tr class="header">
+<th>Points</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Bilirubin (mg/dL)</td>
+<td>&lt;1.2</td>
+<td>1.2–1.9</td>
+<td>2.0–5.9</td>
+<td>6.0–11.9</td>
+<td>≥12.0</td>
+</tr>
+<tr class="even">
+<td>Bilirubin (μmol/L)</td>
+<td>&lt;20</td>
+<td>20–32</td>
+<td>33–101</td>
+<td>102–204</td>
+<td>≥205</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
 <h3 id="central-nervous-system">Central Nervous System<a class="anchor" aria-label="anchor" href="#central-nervous-system"></a>
 </h3>
 <p>Calculates the SOFA score component for the central nervous system
 using the <code><a href="../reference/sofa_cns.html">sofa_cns()</a></code> function. Points are assigned based on
-the Glascow Coma Score (GCS).</p>
+the Glascow Coma Scale (GCS).</p>
+<table style="width:85%;" class="table">
+<colgroup>
+<col width="40%">
+<col width="6%">
+<col width="11%">
+<col width="11%">
+<col width="8%">
+<col width="6%">
+</colgroup>
+<thead><tr class="header">
+<th>Points</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td>Glasgow Coma Scale (GCS)</td>
+<td>15</td>
+<td>13–14</td>
+<td>10–12</td>
+<td>6–9</td>
+<td>&lt;6</td>
+</tr></tbody>
+</table>
+<p>A GCS score &lt; 3 reflects severe neurological dysfunction and is
+assigned the maximum score, eg in patient with a tube.</p>
 </div>
 <div class="section level3">
 <h3 id="renal">Renal<a class="anchor" aria-label="anchor" href="#renal"></a>
@@ -205,6 +484,58 @@ the Glascow Coma Score (GCS).</p>
 creatinine level (µmol/L). This section does not correct for unrealistic
 creatinine levels, as this data is generally already curated by the
 lab.</p>
+<p>The following table lists the assigned points: <span class="citation">[<a href="#ref-Vincent1996">6</a>]</span> Creatine
+should be provided in µmol/L, mg/dL for reference.</p>
+<table style="width:95%;" class="table">
+<colgroup>
+<col width="31%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
+</colgroup>
+<thead><tr class="header">
+<th>Points</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Creatinine (mg/dL)</td>
+<td>&lt; 1.2</td>
+<td>1.2–1.9</td>
+<td>2.0–3.4</td>
+<td>3.5–4.9</td>
+<td>≥ 5.0</td>
+</tr>
+<tr class="even">
+<td>Creatinine (μmol/L)</td>
+<td>&lt; 110</td>
+<td>110–170</td>
+<td>171–299</td>
+<td>300–440</td>
+<td>≥ 440</td>
+</tr>
+<tr class="odd">
+<td>Urine Output (mL/day)</td>
+<td>&gt; 500</td>
+<td></td>
+<td></td>
+<td>&lt; 500</td>
+<td>&lt; 200</td>
+</tr>
+</tbody>
+</table>
+<p>The following assumptions are made when calculating the renal SOFA
+score:</p>
+<p>Urine output &lt; 500 mL/day correlates with moderate renal
+dysfunction, while &lt; 200 mL/day indicates severe dysfunction. Urine
+output is currently not implemented in the calculation, as this data is
+often missing or registred inadequately.</p>
 </div>
 </div>
 <div class="section level2">
@@ -225,8 +556,16 @@ sequential organ failure assessment (SOFA) score: Has the time come for
 an update? <em>Critical Care</em>. 2023;27(1):15. doi:<a href="https://doi.org/10.1186/s13054-022-04290-9" class="external-link">10.1186/s13054-022-04290-9</a>
 </div>
 </div>
-<div id="ref-BROWN2016307" class="csl-entry">
+<div id="ref-CHAN2013789" class="csl-entry">
 <div class="csl-left-margin">3. </div>
+<div class="csl-right-inline">Chan
+ED, Chan MM, Chan MM. Pulse oximetry: Understanding its basic principles
+facilitates appreciation of its limitations. <em>Respiratory
+Medicine</em>. 2013;107(6):789-799. doi:<a href="https://doi.org/10.1016/j.rmed.2013.02.004" class="external-link">https://doi.org/10.1016/j.rmed.2013.02.004</a>
+</div>
+</div>
+<div id="ref-BROWN2016307" class="csl-entry">
+<div class="csl-left-margin">4. </div>
 <div class="csl-right-inline">Brown SM, Grissom CK, Moss M, et al. Nonlinear
 imputation of Pao2/Fio2 from Spo2/Fio2 among patients with acute
 respiratory distress syndrome. <em>CHEST</em>. 2016;150(2):307-313.
@@ -234,14 +573,23 @@ doi:<a href="https://doi.org/10.1016/j.chest.2016.01.003" class="external-link">
 </div>
 </div>
 <div id="ref-severinghaus1979" class="csl-entry">
-<div class="csl-left-margin">4. </div>
+<div class="csl-left-margin">5. </div>
 <div class="csl-right-inline">Severinghaus JW. Simple, accurate equations for
 human blood O2 dissociation computations. <em>Journal of Applied
 Physiology</em>. 1979;46(3):599-602. doi:<a href="https://doi.org/10.1152/jappl.1979.46.3.599" class="external-link">10.1152/jappl.1979.46.3.599</a>
 </div>
 </div>
+<div id="ref-Vincent1996" class="csl-entry">
+<div class="csl-left-margin">6. </div>
+<div class="csl-right-inline">Vincent J-L, Moreno R, Takala J, et al. The
+SOFA (sepsis-related organ failure assessment) score to describe organ
+dysfunction/failure. <em>Intensive Care Medicine</em>.
+1996;22(7):707-710. doi:<a href="https://doi.org/10.1007/bf01709751" class="external-link">10.1007/bf01709751</a>
 </div>
 </div>
+</div>
+</div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
