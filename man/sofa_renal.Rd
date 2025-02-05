@@ -2,18 +2,33 @@
 % Please edit documentation in R/sofa.r
 \name{sofa_renal}
 \alias{sofa_renal}
-\title{Calculate the sofa score for renal
-Note: Without urine output because it is unreliable}
+\title{SOFA renal}
 \usage{
 sofa_renal(creat)
 }
 \arguments{
-\item{create}{Creatinine}
+\item{create}{Creatinine (umol/L)}
 }
 \value{
-sofa score
+partial sofa score
 }
 \description{
-Calculate the sofa score for renal
-Note: Without urine output because it is unreliable
+This function calculates the renal part of the SOFA
+score.
 }
+\details{
+This function ignores the urine output as defined in the SOFA score
+Reliable measurements of urine output in a retrospective dataset of
+both deteriorated and not deteriorated patients are scarce.
+}
+\seealso{
+Other sofa: 
+\code{\link{sofa_cardiovascular}()},
+\code{\link{sofa_cns}()},
+\code{\link{sofa_coagulation}()},
+\code{\link{sofa_liver}()},
+\code{\link{sofa_magic_wrapper}()},
+\code{\link{sofa_respiration}()},
+\code{\link{sofa_total}()}
+}
+\concept{sofa}

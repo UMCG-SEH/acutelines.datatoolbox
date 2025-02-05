@@ -2,10 +2,7 @@
 % Please edit documentation in R/sofa.r
 \name{sofa_magic_wrapper}
 \alias{sofa_magic_wrapper}
-\title{Magic wrapper to automatically calculate the SOFA score on multiple intervals (eg. hours, days)
-assuming the data is exported using Acutelines SOFA SQL snippet.
-Note: this function assumes data is exported using the Acutelines SOFA export snippet,
-if not manually define columns and use sofa_total().}
+\title{SOFA magic wrapper}
 \usage{
 sofa_magic_wrapper(
   df,
@@ -33,8 +30,22 @@ sofa_magic_wrapper(
 df with sofa scores
 }
 \description{
-Magic wrapper to automatically calculate the SOFA score on multiple intervals (eg. hours, days)
-assuming the data is exported using Acutelines SOFA SQL snippet.
-Note: this function assumes data is exported using the Acutelines SOFA export snippet,
-if not manually define columns and use sofa_total().
+Magic wrapper to automatically calculate the SOFA score on
+multiple intervals (eg. hours, days) assuming the data is
+exported based on Acutelines SOFA exports.
 }
+\details{
+This function assumes data is exported using the Acutelines SOFA
+export snippet, if not, manually define columns and use \code{\link[=sofa_total]{sofa_total()}}.
+}
+\seealso{
+Other sofa: 
+\code{\link{sofa_cardiovascular}()},
+\code{\link{sofa_cns}()},
+\code{\link{sofa_coagulation}()},
+\code{\link{sofa_liver}()},
+\code{\link{sofa_renal}()},
+\code{\link{sofa_respiration}()},
+\code{\link{sofa_total}()}
+}
+\concept{sofa}

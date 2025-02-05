@@ -1,5 +1,28 @@
-url: ~https://umcg-seh.github.io/acutelines.datatoolbox
+url: https://umcg-seh.github.io/acutelines.datatoolbox
+title: Acutelines Datatoolbox
 template:
   bootstrap: 5
-  bootswatch: flatly
-
+  bootswatch: sandstone
+development:
+  mode: auto
+authors:
+  footer:
+    roles: [cre, aut, cph]
+reference:
+- title: SOFA score
+  desc:  Calculate (elements) of the SOFA score
+- contents:
+  - starts_with("sofa_")
+- title: Respiration
+  desc: Collection of function to clean and impute respiratory parameters
+- contents:
+  - clean_fio2
+  - clean_spo2
+  - impute_fio2
+  - impute_pao2
+  - pfratio_imputed
+  - o2supply_to_fio2
+  - spo2_to_pao2
+- title: Helper functions
+- contents:
+  - cbrt

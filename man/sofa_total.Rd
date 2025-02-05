@@ -2,20 +2,22 @@
 % Please edit documentation in R/sofa.r
 \name{sofa_total}
 \alias{sofa_total}
-\title{Calculate the total sofa score from Acutelines df}
+\title{Total SOFA score}
 \usage{
 sofa_total(df, column_mapping, return_df = FALSE)
 }
 \arguments{
 \item{df}{data frame}
 
-\item{column_mapping}{map df columns to SOFA items. Follow this strucure:}
+\item{column_mapping}{map df columns to SOFA items. Follow this structure:}
+
+\item{return_df}{if set to TRUE returns all individual elements of the SOFA}
 }
 \value{
 df column with sofa score per row
 }
 \description{
-Calculate the total sofa score from Acutelines df
+Calculate the total sofa score from Acutelines dataframe.
 }
 \examples{
 \dontrun{
@@ -24,6 +26,7 @@ column_mapping <- c(
  SpO2 = "SOFA_24h_SpO2",
  FiO2 = "SOFA_24h_FiO2",
  oxygen_supply = "SOFA_24h_oxygen_supply",
+ oxygen_mode = "SOFA_24h_oxygen_mode",
  platelets = "SOFA_24h_platelets",
  bilirubin = "SOFA_24h_bilirubin",
  MAP = "SOFA_24h_MAP",
@@ -39,3 +42,14 @@ result <- sofa_total(df, column_mapping)
 }
 
 }
+\seealso{
+Other sofa: 
+\code{\link{sofa_cardiovascular}()},
+\code{\link{sofa_cns}()},
+\code{\link{sofa_coagulation}()},
+\code{\link{sofa_liver}()},
+\code{\link{sofa_magic_wrapper}()},
+\code{\link{sofa_renal}()},
+\code{\link{sofa_respiration}()}
+}
+\concept{sofa}

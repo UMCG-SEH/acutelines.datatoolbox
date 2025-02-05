@@ -2,12 +2,13 @@
 % Please edit documentation in R/sofa.r
 \name{sofa_respiration}
 \alias{sofa_respiration}
-\title{Calculate sofa score for respiration
-Needs either pfratio of both PaO2 and FiO2}
+\title{SOFA respiration}
 \usage{
-sofa_respiration(pfratio, pao2, fio2)
+sofa_respiration(mechanical_ventilation, pfratio, pao2, fio2)
 }
 \arguments{
+\item{mechanical_ventilation}{Mechanical Ventilation (1=TRUE, 0=FALSE)}
+
 \item{pfratio}{P/F-ratio (kPa)}
 
 \item{pao2}{PaO2 (kPa)}
@@ -15,9 +16,22 @@ sofa_respiration(pfratio, pao2, fio2)
 \item{fio2}{FiO2}
 }
 \value{
-sofa score
+partial sofa score
 }
 \description{
-Calculate sofa score for respiration
-Needs either pfratio of both PaO2 and FiO2
+This function calculates the respiratory part of the SOFA
+score. It needs either the PF-ratio or both PaO2 and FiO2.
+If PF-ratio is missing, the function will calculate it from
+PaO2 and FiO2.
 }
+\seealso{
+Other sofa: 
+\code{\link{sofa_cardiovascular}()},
+\code{\link{sofa_cns}()},
+\code{\link{sofa_coagulation}()},
+\code{\link{sofa_liver}()},
+\code{\link{sofa_magic_wrapper}()},
+\code{\link{sofa_renal}()},
+\code{\link{sofa_total}()}
+}
+\concept{sofa}

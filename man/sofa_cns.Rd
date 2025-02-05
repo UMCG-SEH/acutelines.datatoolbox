@@ -2,7 +2,7 @@
 % Please edit documentation in R/sofa.r
 \name{sofa_cns}
 \alias{sofa_cns}
-\title{Calculate the sofa score for Central Nervous System}
+\title{SOFA CNS}
 \usage{
 sofa_cns(gcs)
 }
@@ -10,8 +10,20 @@ sofa_cns(gcs)
 \item{gcs}{Glascow Coma Scale}
 }
 \value{
-sofa score
+partial sofa score
 }
 \description{
-Calculate the sofa score for Central Nervous System
+This function calculates the Central Nervous System (CNS) part of the SOFA
+score.
 }
+\seealso{
+Other sofa: 
+\code{\link{sofa_cardiovascular}()},
+\code{\link{sofa_coagulation}()},
+\code{\link{sofa_liver}()},
+\code{\link{sofa_magic_wrapper}()},
+\code{\link{sofa_renal}()},
+\code{\link{sofa_respiration}()},
+\code{\link{sofa_total}()}
+}
+\concept{sofa}
