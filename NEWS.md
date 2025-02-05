@@ -1,4 +1,4 @@
-# acutelines.datatoolbox 0.0.0.6
+# acutelines.datatoolbox 1.0.0
 
 * Added dplyr as a dependency to make use of dplyr::case_when(), which is more clear than cluttered ifelse structures.
 * Fixed missing mechanical ventilation check when calculation the respiratory part of the SOFA-score. When no mechanical ventilation, the respiratory SOFA-score is now limited to 2 points.
