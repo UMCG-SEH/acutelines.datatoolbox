@@ -3,6 +3,7 @@
 <!-- badges: start -->
 [![GitHub R package version](https://img.shields.io/github/r-package/v/UMCG-SEH/acutelines.datatoolbox?logo=R)](https://github.com/UMCG-SEH/acutelines.datatoolbox/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![DOI](https://zenodo.org/badge/797238877.svg)](https://doi.org/10.5281/zenodo.14824082)
 <!-- badges: end -->
 
 Full documenation is available at [umcg-seh.github.io/acutelines.datatoolbox](https://umcg-seh.github.io/acutelines.datatoolbox/). Visit [GitHub](https://github.com/UMCG-SEH/acutelines.datatoolbox) for source code.
