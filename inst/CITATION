@@ -1,0 +1,17 @@
+
+bibentry(bibtype = "Misc",
+         key = "vanwijk_etall:2025",
+         title = "acutelines.datatoolbox: Toolbox to work with Acutelines biobank data.",
+         author = c(person(given = "Raymond J.",
+                           family = "van Wijk",
+                           email = "r.j.van.wijk@umcg.nl",
+                           comment = c(ORCID = "0000-0002-2106-7699")),
+                    person(given = "Carolina",
+                           family = "Hincapié-Osorno",
+                           comment = c(ORCID = "0000-0001-8582-1614"))),
+         year = "2025",
+         doi = "10.5281/zenodo.14824082",
+         url = "https://umcg-seh.github.io/acutelines.datatoolbox/",
+         abstract = "This package can be used to work with data extracted from the Acutelines data- and biobank. It provides tools to parse data extracts and perform calculations in a uniform matter.",
+         keywords = "biobank,medical,research",
+         version = "1.0.1")
