@@ -9,7 +9,7 @@ type: software
 license: MIT
 title: 'acutelines.datatoolbox: Toolbox to work with Acutelines biobank data.'
 version: 1.0.1
-doi: 10.5281/zenodo.14824083
+doi: 10.5281/zenodo.14824082
 abstract: This package can be used to work with data extracted from the Acutelines
   data- and biobank. It provides tools to parse data extracts and perform calculations
   in a uniform matter.
