@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="index.html">Acutelines Datatoolbox</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,13 +39,16 @@
 
 <div id="development-instructions" class="section level1">
 
-<p>Install R <code>devtools</code>, <code>roxygen2</code> and <code>pkgdown</code>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"devtools"</span>, <span class="st">"roxygen2"</span>, <span class="st">"pkgdown"</span>))</span></code></pre></div>
+<p>Install R <code>devtools</code>, <code>roxygen2</code>,<code>pkgdown</code> and <code>cffr</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"devtools"</span>, <span class="st">"roxygen2"</span>, <span class="st">"pkgdown"</span>, <span class="st">"cffr"</span>))</span></code></pre></div>
 <p>Run local developed changes:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">load_all</span>() <span class="co"># or devtools::install() for installing the package</span></span></code></pre></div>
 <p>Parse documentation:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">document</span>()</span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>pkgdown<span class="sc">::</span><span class="fu">build_site</span>()</span></code></pre></div>
+<p>Increment version: usethis::use_version() pkgdown::build_site()</p>
+<p>Update citation file:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>cffr<span class="sc">::</span><span class="fu">cff_write</span>(<span class="at">keys =</span> <span class="fu">list</span>(<span class="st">"doi"</span> <span class="ot">=</span> <span class="st">"10.5281/zenodo.14824083"</span>))</span></code></pre></div>
 </div>
 <div class="section level1">
 <h1 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h1>

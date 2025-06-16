@@ -1,3 +1,7 @@
+# acutelines.datatoolbox 1.0.1
+
+* Added DOI and CITATION.cff file to make citing the package possible.
+
 # acutelines.datatoolbox 1.0.0
 
 * Added dplyr as a dependency to make use of dplyr::case_when(), which is more clear than cluttered ifelse structures.
