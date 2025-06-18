@@ -19,7 +19,7 @@ Increment version:
 
 Update citation file:
 
-    cffr::cff_write(keys = list("doi" = "10.5281/zenodo.14824082"),  r_citation = TRUE)
+    cffr::cff_write(keys = list("doi" = "10.5281/zenodo.14824082"))
 
 # References
 1. https://pkgdown.r-lib.org/

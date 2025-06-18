@@ -19,9 +19,13 @@ authors:
   name-particle: van
   email: r.j.van.wijk@umcg.nl
   orcid: https://orcid.org/0000-0002-2106-7699
+  affiliation: Department of Acute Care, University of Groningen, University Medical
+    Center Groningen, Groningen, The Netherlands
 - family-names: Hincapié-Osorno
   given-names: Carolina
   orcid: https://orcid.org/0000-0001-8582-1614
+  affiliation: Department of Internal Medicine, University of Groningen, University
+    Medical Center Groningen, Groningen, The Netherlands
 repository-code: https://github.com/UMCG-SEH/acutelines.datatoolbox
 url: https://umcg-seh.github.io/acutelines.datatoolbox/
 date-released: '2025-02-05'
@@ -31,6 +35,8 @@ contact:
   name-particle: van
   email: r.j.van.wijk@umcg.nl
   orcid: https://orcid.org/0000-0002-2106-7699
+  affiliation: Department of Acute Care, University of Groningen, University Medical
+    Center Groningen, Groningen, The Netherlands
 keywords:
 - biobank
 - medical
