@@ -6,7 +6,7 @@ link-citations: true
 reference-section-title: References
 csl: ama-brackets.csl
 vignette: >
-  %\VignetteIndexEntry{SOFA score calculation}
+  %\VignetteIndexEntry{NEWS score calculation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
