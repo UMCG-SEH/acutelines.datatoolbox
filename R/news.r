@@ -150,11 +150,11 @@ news_total <- function(hr, rf, temp, sbp, avpu, gcs, o2supp, spo2, return_df = F
   o2supp_score <- news_o2supp(o2supp)
   spo2_score <- news_spo2(spo2)
 
-  if (all(is.na(c(hr_score, rf_score, temp_score, sbp_score,consc_score, o2supp_score, spo2_score)))) {
-    NA_integer_
-  } else {
-    total_score <- rowSums(cbind(hr_score, rf_score, temp_score, sbp_score, consc_score, o2supp_score, spo2_score), na.rm = TRUE)
-  }
+  total_score <- as.vector(apply(cbind(hr_score, rf_score, temp_score, sbp_score, consc_score, o2supp_score, spo2_score), 1,
+    function(x) { 
+      if (all(is.na(x))) NA else sum(x, na.rm = TRUE)
+    }
+  ))
 
   if(return_df) {
     return(data.frame(
