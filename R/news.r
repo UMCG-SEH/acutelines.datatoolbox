@@ -141,7 +141,7 @@ news_spo2 <- function(spo2) {
 #' @return Total NEWS score as an integer, or a dataframe with individual component scores and total score if return_df is TRUE
 #' 
 #' @export
-news_total <- function(hr, rf, temp, sbp, avpu = NA, gcs = NA, o2supp, spo2, return_df = FALSE) {
+news_total <- function(hr, rf, temp, sbp, avpu, gcs, o2supp, spo2, return_df = FALSE) {
   hr_score <- news_hr(hr)
   rf_score <- news_rf(rf)
   temp_score <- news_temp(temp)
