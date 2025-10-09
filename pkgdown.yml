@@ -1,0 +1,9 @@
+pandoc: 3.1.11
+pkgdown: 2.1.3
+pkgdown_sha: ~
+articles:
+  SOFA-score: SOFA-score.html
+last_built: 2025-10-09T14:11Z
+urls:
+  reference: https://umcg-seh.github.io/acutelines.datatoolbox/reference
+  article: https://umcg-seh.github.io/acutelines.datatoolbox/articles
