@@ -153,7 +153,7 @@ news_total <- function(hr, rf, temp, sbp, avpu, gcs, o2supp, spo2, return_df = F
   if (all(is.na(c(hr_score, rf_score, temp_score, sbp_score,consc_score, o2supp_score, spo2_score)))) {
     NA_integer_
   } else {
-    total_score <- sum(c(hr_score, rf_score, temp_score, sbp_score, consc_score, o2supp_score, spo2_score), na.rm = TRUE)
+    total_score <- rowSums(cbind(hr_score, rf_score, temp_score, sbp_score, consc_score, o2supp_score, spo2_score), na.rm = TRUE)
   }
 
   if(return_df) {
