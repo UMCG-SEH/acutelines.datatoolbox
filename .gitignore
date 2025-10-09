@@ -3,3 +3,4 @@ altdoc/freeze.rds
 inst/doc
 .vscode
 test.R
+/docs
