@@ -113,7 +113,7 @@ news_o2supp <- function(o2supp) {
 #' 
 #' @return Numeric NEWS score for SpO2
 news_spo2 <- function(spo2) {
-  spo2 = round(spo2) # Round to nearest integer, in case decimal input
+  spo2 <- round(spo2) # Round to nearest integer, in case decimal input
 
   dplyr::case_when(
     spo2 <= 91 ~ 3,

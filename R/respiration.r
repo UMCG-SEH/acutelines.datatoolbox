@@ -187,6 +187,11 @@ clean_fio2 <- function(fio2, o2supply, o2system) {
   # If FiO2 >= 85 and oxygen mode = 0, this is proibably SpO2, set as missing
   fio2[fio2 >= 85 & o2system == 0] <- NA
 
+  # Maximum realistic FiO2 per oxygen system
+  fio2[o2system == 20 & fio2 > 44] <- NA
+  fio2[o2system == 25 & fio2 > 60] <- NA
+  fio2[o2system == 30 & fio2 > 90] <- NA
+
   # If FiO2 is <1 then it is probably a fraction, convert to percentage
   fio2 <- ifelse(fio2 < 1, fio2*100, fio2)
 
@@ -240,6 +245,9 @@ impute_fio2 <- function(fio2, o2supply, o2system) {
 #' 
 #' @return pfratio
 pfratio_imputed <- function(pao2, spo2, fio2, o2supply, o2system) {
+  # Cap unrealistic oxygen supply for nasal cannula (o2system = 20)
+  o2supply[o2system == 20 & o2supply > 15] <- 15
+
   # Clean SpO2 values
   spo2 <- clean_spo2(spo2)
 
