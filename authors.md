@@ -27,7 +27,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/UMCG-SEH/acutelines.datatoolbox/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/UMCG-SEH/acutelines.datatoolbox/blob/1.1.0/DESCRIPTION)
 
 van Wijk RJ, Hincapié-Osorno C (2026). *acutelines.datatoolbox: Toolbox
 to work with Acutelines biobank data.*. R package version 1.1.0,
