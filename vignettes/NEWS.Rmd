@@ -30,13 +30,13 @@ By default `return_df` is `FALSE` and can be left out, if set to `TRUE` the func
 Assuming your vital parameters are stored in dataframe `df` with columns `hr`, `rf`, `temp`, `sbp`, `avpu`, `gcs`, `o2supp`, and `spo2`, you can calculate the NEWS score as follows:
 
 ``` R
-result <- news_total <- function(df$hr, df$rf, df$temp, df$sbp, df$avpu, df$gcs, df$o2supp, df$spo2)
+result <- news_total(df$hr, df$rf, df$temp, df$sbp, df$avpu, df$gcs, df$o2supp, df$spo2)
 ```
 
 By default, the function only returns the total NEWS score, but you can also return the individual components of the NEWS score by setting `return_df = TRUE`. This will return a dataframe with all the individual components of the NEWS score.
 
 ``` R
-result <- news_total <- function(df$hr, df$rf, df$temp, df$sbp, df$avpu, df$gcs, df$o2supp, df$spo2, return_df = TRUE)
+result <- news_total(df$hr, df$rf, df$temp, df$sbp, df$avpu, df$gcs, df$o2supp, df$spo2, return_df = TRUE)
 ```
 
 If all eight components scores are missing, the returned total NEWS score will be `NA`.

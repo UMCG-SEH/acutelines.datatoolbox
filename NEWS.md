@@ -1,3 +1,5 @@
+# acutelines.datatoolbox (development version)
+
 # acutelines.datatoolbox 1.1.0
 
 * Added functions to calculate the National Early Warning Score (NEWS), see vignette("NEWS")
