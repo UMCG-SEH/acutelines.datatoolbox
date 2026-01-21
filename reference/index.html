@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Acutelines Datatoolbox</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,7 +18,8 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/SOFA-score.html">SOFA score calculation</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/NEWS.html">NEWS score calculation</a></li>
+    <li><a class="dropdown-item" href="../articles/SOFA-score.html">SOFA score calculation</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -40,8 +41,7 @@
 
       <div class="section-desc"><p>Calculate (elements) of the SOFA score</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -52,43 +52,50 @@
 
         </dt>
         <dd>SOFA cardiovascular</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="sofa_cns.html">sofa_cns()</a></code>
 
         </dt>
         <dd>SOFA CNS</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="sofa_coagulation.html">sofa_coagulation()</a></code>
 
         </dt>
         <dd>SOFA coagulation</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="sofa_liver.html">sofa_liver()</a></code>
 
         </dt>
         <dd>SOFA liver</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="sofa_magic_wrapper.html">sofa_magic_wrapper()</a></code>
 
         </dt>
         <dd>SOFA magic wrapper</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="sofa_renal.html">sofa_renal()</a></code>
 
         </dt>
         <dd>SOFA renal</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="sofa_respiration.html">sofa_respiration()</a></code>
 
         </dt>
         <dd>SOFA respiration</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="sofa_total.html">sofa_total()</a></code>
 
@@ -99,8 +106,7 @@
 
       <div class="section-desc"><p>Collection of function to clean and impute respiratory parameters</p></div>
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -111,49 +117,142 @@
 
         </dt>
         <dd>Clean FiO2</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="clean_spo2.html">clean_spo2()</a></code>
 
         </dt>
         <dd>Clean SpO2</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="impute_fio2.html">impute_fio2()</a></code>
 
         </dt>
         <dd>Impute FiO2</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="impute_pao2.html">impute_pao2()</a></code>
 
         </dt>
         <dd>Impute PaO2 with SpO2</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="pfratio_imputed.html">pfratio_imputed()</a></code>
 
         </dt>
         <dd>Calculate P/F-ratio</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="o2supply_to_fio2.html">o2supply_to_fio2()</a></code>
 
         </dt>
         <dd>O2-supply to FiO2</dd>
-      </dl><dl><dt>
+
+        <dt>
 
           <code><a href="spo2_to_pao2.html">spo2_to_pao2()</a></code>
 
         </dt>
         <dd>Convert SpO2 to PaO2</dd>
       </dl></div><div class="section level2">
+      <h2 id="news-score">NEWS score<a class="anchor" aria-label="anchor" href="#news-score"></a></h2>
+
+      <div class="section-desc"><p>Calculate (elements) of the National Early Warning Score (NEWS)</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="news_consc.html">news_consc()</a></code>
+
+        </dt>
+        <dd>Calculate NEWS score for Consciousness level (AVPU or GCS)</dd>
+
+        <dt>
+
+          <code><a href="news_hr.html">news_hr()</a></code>
+
+        </dt>
+        <dd>Calculate NEWS score for Heart Rate (HR)</dd>
+
+        <dt>
+
+          <code><a href="news_o2supp.html">news_o2supp()</a></code>
+
+        </dt>
+        <dd>Calculate NEWS score for Oxygen Supplementation (O2 supp)</dd>
+
+        <dt>
+
+          <code><a href="news_rf.html">news_rf()</a></code>
+
+        </dt>
+        <dd>Calculate NEWS score for Respiratory Frequency (RF)</dd>
+
+        <dt>
+
+          <code><a href="news_sbp.html">news_sbp()</a></code>
+
+        </dt>
+        <dd>Calculate NEWS score for Systolic Blood Pressure (SBP)</dd>
+
+        <dt>
+
+          <code><a href="news_spo2.html">news_spo2()</a></code>
+
+        </dt>
+        <dd>Calculate NEWS score for Oxygen Saturation (SpO2)</dd>
+
+        <dt>
+
+          <code><a href="news_temp.html">news_temp()</a></code>
+
+        </dt>
+        <dd>Calculate NEWS score for Temperature (Temp)</dd>
+
+        <dt>
+
+          <code><a href="news_total.html">news_total()</a></code>
+
+        </dt>
+        <dd>Calculate total NEWS score from individual components</dd>
+      </dl></div><div class="section level2">
+      <h2 id="postprocessing-functions">Postprocessing functions<a class="anchor" aria-label="anchor" href="#postprocessing-functions"></a></h2>
+
+      <div class="section-desc"><p>Functions to postprocess and clean data</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="clean_lab.html">clean_lab()</a></code>
+
+        </dt>
+        <dd>Clean laboratory variables by removing '&lt;' and '&gt;' characters and converting to numeric Cleans all columns starting with "lab_" (per Acutelines standard)</dd>
+
+        <dt>
+
+          <code><a href="normalize_decimal_format.html">normalize_decimal_format()</a></code>
+
+        </dt>
+        <dd>Normalize decimal format in a data frame Interprets both "." and "," as decimal indicators</dd>
+      </dl></div><div class="section level2">
       <h2 id="helper-functions">Helper functions<a class="anchor" aria-label="anchor" href="#helper-functions"></a></h2>
 
 
 
-
-    </div><div class="section level2">
+      <dl></dl></div><div class="section level2">
 
 
 
@@ -174,7 +273,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

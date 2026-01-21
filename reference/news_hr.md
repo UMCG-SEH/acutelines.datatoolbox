@@ -1,0 +1,30 @@
+# Calculate NEWS score for Heart Rate (HR)
+
+Calculate NEWS score for Heart Rate (HR)
+
+## Usage
+
+``` r
+news_hr(hr)
+```
+
+## Arguments
+
+- hr:
+
+  Numeric value representing Heart Rate (bpm)
+
+## Value
+
+Numeric NEWS score for HR
+
+## See also
+
+Other news:
+[`news_consc()`](https://umcg-seh.github.io/acutelines.datatoolbox/reference/news_consc.md),
+[`news_o2supp()`](https://umcg-seh.github.io/acutelines.datatoolbox/reference/news_o2supp.md),
+[`news_rf()`](https://umcg-seh.github.io/acutelines.datatoolbox/reference/news_rf.md),
+[`news_sbp()`](https://umcg-seh.github.io/acutelines.datatoolbox/reference/news_sbp.md),
+[`news_spo2()`](https://umcg-seh.github.io/acutelines.datatoolbox/reference/news_spo2.md),
+[`news_temp()`](https://umcg-seh.github.io/acutelines.datatoolbox/reference/news_temp.md),
+[`news_total()`](https://umcg-seh.github.io/acutelines.datatoolbox/reference/news_total.md)

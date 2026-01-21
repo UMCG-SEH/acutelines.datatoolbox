@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Acutelines Datatoolbox</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +33,8 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/SOFA-score.html">SOFA score calculation</a></li>
+<li><a class="dropdown-item" href="../articles/NEWS.html">NEWS score calculation</a></li>
+    <li><a class="dropdown-item" href="../articles/SOFA-score.html">SOFA score calculation</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -74,16 +75,22 @@ score can be calculated in two different ways.</p>
 <h3 id="automatic-calculation">Automatic calculation<a class="anchor" aria-label="anchor" href="#automatic-calculation"></a>
 </h3>
 <p>Use the <code><a href="../reference/sofa_magic_wrapper.html">sofa_magic_wrapper()</a></code> function when you use a raw
-data file from the Acutelines database. SOFA related variables are coded
-as <code>SOFA_[timespan]h_[variable]</code>. Make sure all variables are
+data file from the Acutelines database <span class="citation">[<a href="#ref-Avest2021">1</a>]</span>. SOFA related variables are coded as
+<code>SOFA_[timespan]h_[variable]</code>. Make sure all variables are
 present. <code>interval</code> can be used to set the time stap interval
 in correspondance to your dataset, while <code>timespan</code> can be
 use to set the maximum timespan. By default <code>return_df</code> is
 <code>FALSE</code> and can be left out, if set to <code>TRUE</code> the
-function will return all the inidivual elements of the SOFA scora
+function will return all the inidivual elements of the SOFA score
 instead of only the totals.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sofa_magic_wrapper.html">sofa_magic_wrapper</a></span><span class="op">(</span><span class="va">df</span>, interval<span class="op">=</span><span class="fl">24</span>, timespan<span class="op">=</span><span class="fl">72</span><span class="op">)</span></span></code></pre></div>
+<p>By default, the function only returns the total SOFA score, but you
+can also return the individual components of the SOFA score by setting
+<code>return_df = TRUE</code>. This will return a dataframe with all the
+individual components of the SOFA score.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sofa_magic_wrapper.html">sofa_magic_wrapper</a></span><span class="op">(</span><span class="va">df</span>, interval<span class="op">=</span><span class="fl">24</span>, timespan<span class="op">=</span><span class="fl">72</span>, return_df <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <details><summary>
 Manual calculation
 </summary><p>When your dataset has a different naming schema (not having the
@@ -92,7 +99,7 @@ calculate the SOFA score with this package, however, you have to provide
 the package with a mapping of each column in your dataset corresponding
 to the acutal element of the SOFA score.</p>
 <p>First define the mapping:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">column_mapping</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  PaO2 <span class="op">=</span> <span class="st">"your_PaO2_variable"</span>,</span>
 <span>  SpO2 <span class="op">=</span> <span class="st">"your_SpO2_variable"</span>,</span>
@@ -112,7 +119,7 @@ to the acutal element of the SOFA score.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Then pass that mapping to the sofa_total function along with your
 dataframe:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sofa_total.html">sofa_total</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">column_mapping</span><span class="op">)</span></span></code></pre></div>
 </details>
 </div>
@@ -120,12 +127,12 @@ dataframe:</p>
 <div class="section level2">
 <h2 id="calculations">Calculations<a class="anchor" aria-label="anchor" href="#calculations"></a>
 </h2>
-<p>The SOFA (Sequential Organ Failure Assessment) <span class="citation">[<a href="#ref-Lambden2019">1</a>,<a href="#ref-Moreno2023">2</a>]</span> calculation functions are designed
-to provide the worst SOFA score for a patient within a specific
-interval. When retrospectively calculating the SOFA score, one must
-address missing values and inaccurately recorded values. This function
-automatically handles such issues. Consequently, the SOFA score
-functions incorporate several assumptions to ensure feasible
+<p>The SOFA (Sequential Organ Failure Assessment) <span class="citation">[<a href="#ref-Vincent1996">2</a>]</span> calculation
+functions are designed to provide the worst SOFA score for a patient
+within a specific interval. When retrospectively calculating the SOFA
+score, one must address missing values and inaccurately recorded values.
+This function automatically handles such issues. Consequently, the SOFA
+score functions incorporate several assumptions to ensure feasible
 calculations. Users should be aware of these assumptions when utilizing
 these functions.</p>
 <div class="section level3">
@@ -165,7 +172,7 @@ these functions.</p>
 </tbody>
 </table>
 <p>Many respiratory parameters tend to be missing. The
-<code><a href="../reference/sofa_respiration.html">sofa_respiration()</a></code> function calculated the respiratory
+<code><a href="../reference/sofa_respiration.html">sofa_respiration()</a></code> function calculates the respiratory
 points of the SOFA score with the following rules and assumptions:</p>
 <div class="section level4">
 <h4 id="pao2">PaO<sub>2</sub><a class="anchor" aria-label="anchor" href="#pao2"></a>
@@ -221,6 +228,17 @@ If FiO<sub>2</sub> ≥85 and no oxygen delivery device is known and
 confusion on data entry. The value is treated as missing.<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;When extracted from the Acutelines database the next
 available value is used if possible, otherwise it is marked as
 missing.&lt;/p&gt;"><sup>3</sup></a>
+</li>
+<li>Unrealistic FiO<sub>2</sub> for the corresponding oxygen delivery
+device are removed:
+<ul>
+<li>If oxygen delivery device is ‘nasal cannula’ and FiO<sub>2</sub>
+&gt; 44%, it is treated as missing.</li>
+<li>If oxygen delivery device is ‘venturi mask’ and FiO<sub>2</sub> &gt;
+60%, it is treated as missing.</li>
+<li>If oxygen delivery device is ‘non-rebreather’ and FiO<sub>2</sub>
+&gt; 90%, it is treated as missing.</li>
+</ul>
 </li>
 <li>Fractional FiO<sub>2</sub> Values:<br>
 If FiO<sub>2</sub> is below 1, it is assumed to be a fraction and
@@ -299,7 +317,7 @@ that mode is used.</li>
 <td>n/a</td>
 </tr>
 <tr class="even">
-<td>High-flow nasal cannula (optiflow or cpap)</td>
+<td>High-flow nasal cannula (Optiflow or CPAP)</td>
 <td>Up to 60</td>
 <td>30-100%</td>
 <td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mi>i</mi><msub><mi>O</mi><mn>2</mn></msub><mo>=</mo><mn>30</mn><mo>+</mo><mfrac><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>Q</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>*</mo><mn>70</mn></mrow><mn>59</mn></mfrac></mrow><annotation encoding="application/x-tex">FiO_{2} = 30 + \frac{(Q - 1) * 70}{59}</annotation></semantics></math></td>
@@ -351,7 +369,7 @@ using the <code><a href="../reference/sofa_cardiovascular.html">sofa_cardiovascu
 levels (0 and 1 points) are based on Mean Arterial Pressure (MAP), while
 higher levels are determined by catecholamine administration. For
 dopamine, dobutamine, epinephrine, and norepinephrine, these dosages
-need to be provied as µg/kg/min.</p>
+need to be provided as µg/kg/min.</p>
 <table style="width:99%;" class="table">
 <colgroup>
 <col width="3%">
@@ -473,13 +491,13 @@ assigned the maximum score, eg in patient with a tube.</p>
 <div class="section level3">
 <h3 id="renal">Renal<a class="anchor" aria-label="anchor" href="#renal"></a>
 </h3>
-<p>Calculates the SOFA score compontent for the renal function using the
+<p>Calculates the SOFA score component for the renal function using the
 <code><a href="../reference/sofa_renal.html">sofa_renal()</a></code> function. Points are assigned based on the
 creatinine level (µmol/L). This section does not correct for unrealistic
 creatinine levels, as this data is generally already curated by the
 lab.</p>
-<p>The following table lists the assigned points: <span class="citation">[<a href="#ref-Vincent1996">6</a>]</span> Creatine
-should be provided in µmol/L, mg/dL for reference.</p>
+<p>The following table lists the assigned points: Creatine should be
+provided in µmol/L, mg/dL for reference.</p>
 <table style="width:95%;" class="table">
 <colgroup>
 <col width="31%">
@@ -529,25 +547,26 @@ score:</p>
 <p>Urine output &lt; 500 mL/day correlates with moderate renal
 dysfunction, while &lt; 200 mL/day indicates severe dysfunction. Urine
 output is currently not implemented in the calculation, as this data is
-often missing or registred inadequately.</p>
+often missing or registered inadequately.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="bibliography">References<a class="anchor" aria-label="anchor" href="#bibliography"></a>
 </h2>
 <div id="refs" class="references csl-bib-body">
-<div id="ref-Lambden2019" class="csl-entry">
+<div id="ref-Avest2021" class="csl-entry">
 <div class="csl-left-margin">1. </div>
-<div class="csl-right-inline">Lambden S, Laterre PF, Levy MM, Francois B. The
-SOFA score—development, utility and challenges of accurate assessment in
-clinical trials. <em>Critical Care</em>. 2019;23(1):374. doi:<a href="https://doi.org/10.1186/s13054-019-2663-7" class="external-link">10.1186/s13054-019-2663-7</a>
+<div class="csl-right-inline">Avest E ter, Munster BC van, Wijk RJ van, et
+al. Cohort profile of acutelines: A large data/biobank of acute and
+emergency medicine. <em>BMJ Open</em>. 2021;11(7). doi:<a href="https://doi.org/10.1136/bmjopen-2020-047349" class="external-link">10.1136/bmjopen-2020-047349</a>
 </div>
 </div>
-<div id="ref-Moreno2023" class="csl-entry">
+<div id="ref-Vincent1996" class="csl-entry">
 <div class="csl-left-margin">2. </div>
-<div class="csl-right-inline">Moreno R, Rhodes A, Piquilloud L, et al. The
-sequential organ failure assessment (SOFA) score: Has the time come for
-an update? <em>Critical Care</em>. 2023;27(1):15. doi:<a href="https://doi.org/10.1186/s13054-022-04290-9" class="external-link">10.1186/s13054-022-04290-9</a>
+<div class="csl-right-inline">Vincent J-L, Moreno R, Takala J, et al. The
+SOFA (sepsis-related organ failure assessment) score to describe organ
+dysfunction/failure. <em>Intensive Care Medicine</em>.
+1996;22(7):707-710. doi:<a href="https://doi.org/10.1007/bf01709751" class="external-link">10.1007/bf01709751</a>
 </div>
 </div>
 <div id="ref-CHAN2013789" class="csl-entry">
@@ -555,7 +574,7 @@ an update? <em>Critical Care</em>. 2023;27(1):15. doi:<a href="https://doi.org/1
 <div class="csl-right-inline">Chan
 ED, Chan MM, Chan MM. Pulse oximetry: Understanding its basic principles
 facilitates appreciation of its limitations. <em>Respiratory
-Medicine</em>. 2013;107(6):789-799. doi:<a href="https://doi.org/10.1016/j.rmed.2013.02.004" class="external-link">https://doi.org/10.1016/j.rmed.2013.02.004</a>
+Medicine</em>. 2013;107(6):789-799. doi:<a href="https://doi.org/10.1016/j.rmed.2013.02.004" class="external-link">10.1016/j.rmed.2013.02.004</a>
 </div>
 </div>
 <div id="ref-BROWN2016307" class="csl-entry">
@@ -573,14 +592,6 @@ human blood O2 dissociation computations. <em>Journal of Applied
 Physiology</em>. 1979;46(3):599-602. doi:<a href="https://doi.org/10.1152/jappl.1979.46.3.599" class="external-link">10.1152/jappl.1979.46.3.599</a>
 </div>
 </div>
-<div id="ref-Vincent1996" class="csl-entry">
-<div class="csl-left-margin">6. </div>
-<div class="csl-right-inline">Vincent J-L, Moreno R, Takala J, et al. The
-SOFA (sepsis-related organ failure assessment) score to describe organ
-dysfunction/failure. <em>Intensive Care Medicine</em>.
-1996;22(7):707-710. doi:<a href="https://doi.org/10.1007/bf01709751" class="external-link">10.1007/bf01709751</a>
-</div>
-</div>
 </div>
 </div>
 
@@ -595,7 +606,7 @@ dysfunction/failure. <em>Intensive Care Medicine</em>.
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
