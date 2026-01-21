@@ -18,11 +18,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Raymond J. van Wijk \email{r.j.van.wijk@umcg.nl} (\href{https://orcid.org/0000-0002-2106-7699}{ORCID})
+\strong{Maintainer}: Raymond J. van Wijk \email{r.j.van.wijk@umcg.nl} (\href{https://orcid.org/0000-0002-2106-7699}{ORCID}) (Department of Acute Care, University of Groningen, University Medical Center Groningen, Groningen, The Netherlands)
 
 Authors:
 \itemize{
-  \item Carolina Hincapié-Osorno (\href{https://orcid.org/0000-0001-8582-1614}{ORCID})
+  \item Carolina Hincapié-Osorno (\href{https://orcid.org/0000-0001-8582-1614}{ORCID}) (Department of Internal Medicine, University of Groningen, University Medical Center Groningen, Groningen, The Netherlands)
 }
 
 Other contributors:

@@ -26,12 +26,18 @@ library(acutelines.datatoolbox)
 Asuming the data is loaded into a dataframe `df`, the SOFA score can be calculated in two different ways.
 
 ## Automatic calculation
-Use the `sofa_magic_wrapper()` function when you use a raw data file from the Acutelines database. SOFA related variables are coded as `SOFA_[timespan]h_[variable]`. Make sure all variables are present.
+Use the `sofa_magic_wrapper()` function when you use a raw data file from the Acutelines database [@Avest2021]. SOFA related variables are coded as `SOFA_[timespan]h_[variable]`. Make sure all variables are present.
 `interval` can be used to set the time stap interval in correspondance to your dataset, while `timespan` can be use to set the maximum timespan. By default `return_df` is `FALSE` and can be left out, if
-set to `TRUE` the function will return all the inidivual elements of the SOFA scora instead of only the totals.
+set to `TRUE` the function will return all the inidivual elements of the SOFA score instead of only the totals.
 
 ``` R
 result <- sofa_magic_wrapper(df, interval=24, timespan=72)
+```
+
+By default, the function only returns the total SOFA score, but you can also return the individual components of the SOFA score by setting `return_df = TRUE`. This will return a dataframe with all the individual components of the SOFA score.
+
+``` R
+result <- sofa_magic_wrapper(df, interval=24, timespan=72, return_df = TRUE)
 ```
 
 <details>
@@ -69,7 +75,7 @@ result <- sofa_total(df, column_mapping)
 </details>
 
 # Calculations
-The SOFA (Sequential Organ Failure Assessment) [@Lambden2019; @Moreno2023] calculation functions are designed to provide the worst SOFA score for a patient within a specific interval.
+The SOFA (Sequential Organ Failure Assessment) [@Vincent1996] calculation functions are designed to provide the worst SOFA score for a patient within a specific interval.
 When retrospectively calculating the SOFA score, one must address missing values and inaccurately recorded values. This function automatically handles such issues.
 Consequently, the SOFA score functions incorporate several assumptions to ensure feasible calculations. Users should be aware of these assumptions when utilizing
 these functions.
@@ -84,7 +90,7 @@ these functions.
 |                      | NOT mechanically ventilated | with respiratory support |
 +----------------------+-----------------------------+--------------------------+
 
-Many respiratory parameters tend to be missing. The `sofa_respiration()` function calculated the respiratory points of the SOFA score
+Many respiratory parameters tend to be missing. The `sofa_respiration()` function calculates the respiratory points of the SOFA score
 with the following rules and assumptions:
 
 ### PaO~2~
@@ -106,11 +112,15 @@ If FiO~2~ ≥101, it is capped at 100 as values above this are not physiological
 If FiO~2~ = 0, it is treated as missing.[^1]
 3. High FiO~2~ with no other respiratory data:  
 If FiO~2~ ≥85 and no oxygen delivery device is known and (Oxygen flow is zero or missing), this is likely an SpO~2~ confusion on data entry. The value is treated as missing.[^1]
-4. Fractional FiO~2~ Values:  
+4. Unrealistic FiO~2~ for the corresponding oxygen delivery device are removed:
+   + If oxygen delivery device is 'nasal cannula' and FiO~2~ > 44%, it is treated as missing.
+   + If oxygen delivery device is 'venturi mask' and FiO~2~ > 60%, it is treated as missing.
+   + If oxygen delivery device is 'non-rebreather' and FiO~2~ > 90%, it is treated as missing.
+5. Fractional FiO~2~ Values:  
 If FiO~2~ is below 1, it is assumed to be a fraction and multiplied by 100 to convert it to a percentage. 
-5. Low FiO~2~ Values:  
+6. Low FiO~2~ Values:  
 If FiO~2~ is between 1 and 21, it is treated as missing.[^1]
-6. Estimation from type of O~2~ delivery and flow rate:
+7. Estimation from type of O~2~ delivery and flow rate:
     + If FiO~2~ is missing but oxygen supplementation type and flow rate are available, the FiO~2~ is estimated using the table below. 
     + If only oxygen mode is available, the maximum FiO~2~ for that mode is used. 
     + Estimating FiO~2~ from oxygen flow/delivery rates:
@@ -135,7 +145,7 @@ If FiO~2~ is between 1 and 21, it is treated as missing.[^1]
 |                                 | 15 \              | 60%  \                       |                                           |
 +---------------------------------+-------------------+------------------------------+-------------------------------------------+
 | High-flow nasal cannula         | Up to 60          | 30-100%                      | $FiO_{2} = 30 + \frac{(Q - 1) * 70}{59}$  |
-| (optiflow or cpap)              |                   |                              |                                           |
+| (Optiflow or CPAP)              |                   |                              |                                           |
 +---------------------------------+-------------------+------------------------------+-------------------------------------------+
 
 
@@ -151,7 +161,7 @@ Calculates the coagulation SOFA-score part based on platelet count (*10^3^ µL^-
 ## Cardiovascular system
 Calculates the SOFA score component for the cardiovascular system using the `sofa_cardiovascular()` function. The first two levels (0 and 1 points) are based on Mean Arterial Pressure (MAP),
 while higher levels are determined by catecholamine administration. For dopamine, dobutamine, epinephrine, and norepinephrine, these
-dosages need to be provied as µg/kg/min.
+dosages need to be provided as µg/kg/min.
 
 +----------+----------------------------+----------------------------------------------------+-----------------------------------------------------------+------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------+
 | Points   | 0                          | 1                                                  | 2                                                         | 3                                                                                        | 4                                                                                         |
@@ -188,10 +198,10 @@ Calculates the SOFA score component for the central nervous system using the `so
 A GCS score < 3 reflects severe neurological dysfunction and is assigned the maximum score, eg in patient with a tube.
 
 ## Renal
-Calculates the SOFA score compontent for the renal function using the `sofa_renal()` function. Points are assigned based on the creatinine level (µmol/L).
+Calculates the SOFA score component for the renal function using the `sofa_renal()` function. Points are assigned based on the creatinine level (µmol/L).
 This section does not correct for unrealistic creatinine levels, as this data is generally already curated by the lab.
 
-The following table lists the assigned points: [@Vincent1996]
+The following table lists the assigned points:
 Creatine should be provided in µmol/L, mg/dL for reference.
 
 +------------------------+---------+---------+---------+---------+---------+
@@ -206,6 +216,6 @@ Creatine should be provided in µmol/L, mg/dL for reference.
 
 The following assumptions are made when calculating the renal SOFA score:
 
-Urine output < 500 mL/day correlates with moderate renal dysfunction, while < 200 mL/day indicates severe dysfunction. Urine output is currently not implemented in the calculation, as this data is often missing or registred inadequately.
+Urine output < 500 mL/day correlates with moderate renal dysfunction, while < 200 mL/day indicates severe dysfunction. Urine output is currently not implemented in the calculation, as this data is often missing or registered inadequately.
 
 [^1]: When extracted from the Acutelines database the next available value is used if possible, otherwise it is marked as missing.

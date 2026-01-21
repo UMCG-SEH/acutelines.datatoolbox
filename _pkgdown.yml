@@ -11,11 +11,11 @@ authors:
 reference:
 - title: SOFA score
   desc:  Calculate (elements) of the SOFA score
-- contents:
+  contents:
   - starts_with("sofa_")
 - title: Respiration
   desc: Collection of function to clean and impute respiratory parameters
-- contents:
+  contents:
   - clean_fio2
   - clean_spo2
   - impute_fio2
@@ -23,6 +23,14 @@ reference:
   - pfratio_imputed
   - o2supply_to_fio2
   - spo2_to_pao2
+- title: NEWS score
+  desc: Calculate (elements) of the National Early Warning Score (NEWS)
+  contents:
+  - starts_with("news_")
+- title: Postprocessing functions
+  desc: Functions to postprocess and clean data
+  contents:
+  - has_concept('postprocessing')
 - title: Helper functions
-- contents:
+  contents:
   - cbrt

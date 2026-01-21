@@ -1,3 +1,10 @@
+# acutelines.datatoolbox 1.1.0
+
+* Added functions to calculate the National Early Warning Score (NEWS), see vignette("NEWS")
+* Changed SOFA calculation behaviour: if all subscores are missing the function now returns NA instead of 0.
+* Added FiO2 cleaning per oxygen supply system to remove unrealistic FiO2.
+* If oxygen supply >15 L/min for nasal cannula, cap to 15 L/min.
+
 # acutelines.datatoolbox 1.0.1
 
 * Added DOI and CITATION.cff file to make citing the package possible.

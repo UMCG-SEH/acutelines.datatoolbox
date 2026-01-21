@@ -238,7 +238,11 @@ sofa_total <- function(df, column_mapping, return_df=FALSE){
   score_renal <- sofa_renal(df[[creatinine]])
 
   # Sum
-  score_total <- rowSums(cbind(score_respiration, score_coagulation, score_liver, score_cardiovascular, score_CNS, score_renal), na.rm = TRUE)
+  score_total<- as.vector(apply(cbind(score_respiration, score_coagulation, score_liver, score_cardiovascular, score_CNS, score_renal), 1,
+    function(x) { 
+      if (all(is.na(x))) NA else sum(x, na.rm = TRUE)
+    }
+  ))
 
   if(return_df) {
     return <- data.frame(matrix(nrow=nrow(df)))
