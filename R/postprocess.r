@@ -30,5 +30,3 @@ normalize_decimal_format <- function(df) {
 clean_lab <- function(df) {
     df <- df %>% mutate(across(starts_with("lab_"), ~ as.numeric(gsub("[<>]", "", .))))
 }
-
-
