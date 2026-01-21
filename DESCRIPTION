@@ -5,9 +5,9 @@ Date: 2025-02-05
 Authors@R: c(
     person(given=c("Raymond", "J."), family = "van Wijk", , "r.j.van.wijk@umcg.nl", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-2106-7699", affiliation = "Department of Acute Care, University of Groningen, University Medical Center Groningen, Groningen, The Netherlands")),
     person("Carolina", "Hincapié-Osorno", , role = c("aut"), comment = c(ORCID = "0000-0001-8582-1614", affiliation = "Department of Internal Medicine, University of Groningen, University Medical Center Groningen, Groningen, The Netherlands")),
-    person("Tamar", "van der Aart", , role = c("ctb")),
-    person("Sanne", "Ter Horst", , role = c("ctb")),
-    person(given="Acutelines, UMCG", email="acutelines@umcg.nl", role = c("cph"))
+    person("Tamar", "van der Aart", , role = c("ctb"), comment = c(affiliation = "Department of Internal Medicine, University of Groningen, University Medical Center Groningen, Groningen, The Netherlands")),
+    person("Sanne", "Ter Horst", , role = c("ctb"), comment = c(affiliation = "Department of Internal Medicine, University of Groningen, University Medical Center Groningen, Groningen, The Netherlands")),
+    person(given="Acutelines, UMCG", email="acutelines@umcg.nl", role = c("cph"), comment = c("https://www.acutelines.nl/", ROR = "03cv38k47"))
     )
 Description: This package can be used to work with data extracted from the Acutelines data- and biobank.
     It provides tools to parse data extracts and perform calculations in a uniform matter.

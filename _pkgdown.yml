@@ -27,6 +27,10 @@ reference:
   desc: Calculate (elements) of the National Early Warning Score (NEWS)
   contents:
   - starts_with("news_")
+- title: Postprocessing functions
+  desc: Functions to postprocess and clean data
+  contents:
+  - has_concept('postprocessing')
 - title: Helper functions
   contents:
   - cbrt

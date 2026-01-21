@@ -8,8 +8,7 @@ message: 'To cite package "acutelines.datatoolbox" in publications use:'
 type: software
 license: MIT
 title: 'acutelines.datatoolbox: Toolbox to work with Acutelines biobank data.'
-version: 1.0.1
-doi: 10.5281/zenodo.14824082
+version: 1.0.1.9000
 abstract: This package can be used to work with data extracted from the Acutelines
   data- and biobank. It provides tools to parse data extracts and perform calculations
   in a uniform matter.
@@ -65,7 +64,7 @@ references:
     given-names: Davis
     email: davis@posit.co
     orcid: https://orcid.org/0000-0003-4777-038X
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.dplyr
   version: '>= 1.1.4'
 - type: software
@@ -79,7 +78,7 @@ references:
     given-names: Yihui
     email: xie@yihui.name
     orcid: https://orcid.org/0000-0003-0645-5666
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.knitr
 - type: software
   title: rmarkdown
@@ -123,6 +122,6 @@ references:
     given-names: Richard
     email: rich@posit.co
     orcid: https://orcid.org/0000-0003-3925-190X
-  year: '2025'
+  year: '2026'
   doi: 10.32614/CRAN.package.rmarkdown
 
